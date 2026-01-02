@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  mvp_released_on: 2025-12-31
+  released_on: 2025-12-31
+  summary: MyText
+  target: MyText
+  tech: MyText
+  improvements: MyText
+  app_url: MyString
+  demo_url: MyString
+  github_url: MyString
+
+two:
+  title: MyString
+  mvp_released_on: 2025-12-31
+  released_on: 2025-12-31
+  summary: MyText
+  target: MyText
+  tech: MyText
+  improvements: MyText
+  app_url: MyString
+  demo_url: MyString
+  github_url: MyString
