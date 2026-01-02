@@ -2,8 +2,8 @@
 
 one:
   title: MyString
-  mvp_released_on: 2025-12-27
-  released_on: 2025-12-27
+  mvp_released_on: 2025-12-31
+  released_on: 2025-12-31
   summary: MyText
   target: MyText
   tech: MyText
@@ -14,8 +14,8 @@ one:
 
 two:
   title: MyString
-  mvp_released_on: 2025-12-27
-  released_on: 2025-12-27
+  mvp_released_on: 2025-12-31
+  released_on: 2025-12-31
   summary: MyText
   target: MyText
   tech: MyText
