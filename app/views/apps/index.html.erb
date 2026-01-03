@@ -1,0 +1,31 @@
+<section class="card p-8">
+  <h1 class="text-3xl font-extrabold mb-6">Applications</h1>
+
+  <!-- 検索フォーム（後でタグ対応） -->
+  <%= search_form_for @q, url: apps_path, method: :get do |f| %>
+    <div class="flex gap-3 mb-6">
+      <%= f.search_field :title_or_summary_cont,
+            placeholder: "キーワード検索",
+            class: "input" %>
+
+      <%= f.submit "検索", class: "btn" %>
+    </div>
+  <% end %>
+
+  <!-- 一覧 -->
+  <div class="grid gap-6 sm:grid-cols-2">
+    <% @apps.each do |app| %>
+      <div class="rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
+        <h2 class="text-lg font-bold"><%= app.title %></h2>
+
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          <%= app.summary %>
+        </p>
+
+        <div class="mt-4">
+          <%= link_to "詳細を見る", app_path(app), class: "btn w-full" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -1,5 +1,15 @@
 class Article < ApplicationRecord
   has_one_attached :image
+
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
+
+  # Ransack 許可設定
+  def self.ransackable_attributes(_auth = nil)
+    %w[title summary body]
+  end
+
+  def self.ransackable_associations(_auth = nil)
+    %w[tags]
+  end
 end
