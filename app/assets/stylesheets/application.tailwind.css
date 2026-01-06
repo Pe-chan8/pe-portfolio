@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-slate-200/70 bg-white/80 shadow-sm backdrop-blur
+           dark:border-slate-700/60 dark:bg-slate-900/60;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold
+           bg-sky-200 text-slate-900 hover:bg-sky-300
+           dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400;
+  }
+  .pill {
+    @apply rounded-xl bg-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-sky-300
+           dark:bg-sky-500 dark:text-white;
+  }
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm
+           dark:border-slate-700 dark:bg-slate-900;
+  }
+}
