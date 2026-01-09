@@ -8,13 +8,22 @@
     </div>
   </div>
 
-  <!-- 検索 -->
   <%= search_form_for @q, url: articles_path, method: :get do |f| %>
     <div class="flex gap-3 mb-6">
-      <%= f.search_field :title_or_summary_or_body_cont,
+        <%= f.search_field :title_or_summary_or_body_cont,
             placeholder: "記事検索",
             class: "input" %>
-      <%= f.submit "検索", class: "btn" %>
+        <%= f.submit "検索", class: "btn" %>
+    </div>
+
+    <!-- タグ検索（記事用だけ表示） -->
+    <div class="flex flex-wrap gap-2 mb-6">
+        <% Tag.for_articles.each do |tag| %>
+        <label class="pill flex items-center gap-1">
+            <%= f.check_box :tags_id_in, { multiple: true }, tag.id, nil %>
+            <%= tag.name %>
+        </label>
+        <% end %>
     </div>
   <% end %>
 
