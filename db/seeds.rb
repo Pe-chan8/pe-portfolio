@@ -1,4 +1,4 @@
-tag_names = [
+app_tags = [
   "卒業制作",
   "個人制作アプリ",
   "チーム制作アプリ",
@@ -6,7 +6,10 @@ tag_names = [
   "メディア系",
   "業務・便利ツール系",
   "診断系",
-  "ゲーム系",
+  "ゲーム系"
+]
+
+article_tags = [
   "自己アウトプット",
   "就活",
   "特に新入生におすすめ",
@@ -18,6 +21,22 @@ tag_names = [
   "Zenn"
 ]
 
-tag_names.each do |name|
-  Tag.find_or_create_by!(name: name)
+# もし「両方に出したいタグ」が今後出たらここに入れる
+both_tags = [
+  # "おすすめ", "初心者向け"
+]
+
+app_tags.each do |name|
+  tag = Tag.find_or_create_by!(name: name)
+  tag.update!(kind: :app) if tag.kind != "app"
+end
+
+article_tags.each do |name|
+  tag = Tag.find_or_create_by!(name: name)
+  tag.update!(kind: :article) if tag.kind != "article"
+end
+
+both_tags.each do |name|
+  tag = Tag.find_or_create_by!(name: name)
+  tag.update!(kind: :both) if tag.kind != "both"
 end
