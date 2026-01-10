@@ -3,66 +3,51 @@
   <head>
     <title><%= content_for(:title) || "Pe Portfolio" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Pe Portfolio">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body class="min-h-screen bg-rose-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <body class="min-h-screen bg-rose-50 text-slate-900">
 
-    <!-- Header (fixed top) -->
-    <header class="fixed top-0 left-0 right-0 z-50">
-      <div class="mx-auto w-full max-w-5xl px-4 py-4">
-        <div class="card px-4 py-3">
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <nav class="flex flex-wrap gap-2">
-              <%= link_to "TOP", root_path, class: "pill" %>
-              <%= link_to "About", about_path, class: "pill" %>
-              <%= link_to "App", apps_path, class: "pill" %>
-              <%= link_to "記事", articles_path, class: "pill" %>
-              <%= link_to "問合せ", contact_path, class: "pill" %>
-            </nav>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-rose-50/90 backdrop-blur border-b border-rose-100">
+      <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+        <%= link_to "PORTFOLIO.", root_path, class: "font-extrabold" %>
 
-            <div data-controller="dark-mode">
-              <button class="btn" data-action="click->dark-mode#toggle">
-                <span data-dark-mode-target="label">Dark Mode</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <nav class="flex gap-2">
+          <%= link_to "TOP", root_path, class: "pill" %>
+          <%= link_to "ABOUT", about_path, class: "pill" %>
+          <%= link_to "application", apps_path, class: "pill" %>
+          <%= link_to "記事", articles_path, class: "pill" %>
+          <%= link_to "学習", learning_path, class: "pill" %>
+        </nav>
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-5xl px-4 pt-28 pb-28">
+    <!-- Main -->
+    <main class="pt-16 pb-24">
       <%= yield %>
     </main>
 
-    <footer class="fixed bottom-0 left-0 right-0 z-50">
-      <div class="mx-auto w-full max-w-5xl px-4 py-4">
-        <div class="card px-6 py-5">
-          <div class="flex items-center justify-end gap-6 text-sm">
-            <a class="hover:underline" href="#" target="_blank" rel="noreferrer">Github</a>
-            <a class="hover:underline" href="#" target="_blank" rel="noreferrer">X</a>
-            <a class="hover:underline" href="#" target="_blank" rel="noreferrer">note</a>
-            <a class="hover:underline" href="#" target="_blank" rel="noreferrer">Qiita</a>
-          </div>
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-t border-slate-200">
+      <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+        <div class="flex gap-4 text-sm">
+          <a href="#">Github</a>
+          <a href="#">X</a>
+          <a href="#">問い合わせ</a>
         </div>
+
+        <button id="themeToggle" class="pill bg-sky-200">Dark Mode</button>
       </div>
     </footer>
+
   </body>
 </html>
