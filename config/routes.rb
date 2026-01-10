@@ -1,22 +1,16 @@
 Rails.application.routes.draw do
-  get "apps/index"
-  get "apps/show"
-  get "pages/home"
-  get "pages/about"
-  get "pages/contact"
-  # ヘルスチェック（そのままでOK）
+  # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # トップページ
+  # トップ
   root "pages#home"
 
   # 静的ページ
-  get "/about",   to: "pages#about"
-  get "/contact", to: "pages#contact"
+  get "/about",    to: "pages#about",    as: :about
+  get "/contact",  to: "pages#contact",  as: :contact
+  get "/learning", to: "pages#learning", as: :learning
 
-  # プロダクト（App）
-  resources :apps, only: %i[index show]
-
-  # 記事（Article）
+  # 一覧系
+  resources :apps,     only: %i[index show]
   resources :articles, only: %i[index show]
 end

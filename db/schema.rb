@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_09_085917) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_09_163501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_09_085917) do
     t.datetime "created_at", null: false
     t.date "published_on"
     t.string "source_url"
+    t.text "summary"
+    t.string "title"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "authors"
+    t.datetime "created_at", null: false
+    t.string "google_books_id"
+    t.string "isbn"
+    t.date "published_on"
+    t.string "publisher"
+    t.date "read_on"
     t.text "summary"
     t.string "title"
     t.datetime "updated_at", null: false

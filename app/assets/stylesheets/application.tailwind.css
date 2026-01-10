@@ -5,21 +5,31 @@
 @tailwind utilities;
 
 @layer components {
-  .card {
-    @apply rounded-2xl border border-slate-200/70 bg-white/80 shadow-sm backdrop-blur
-           dark:border-slate-700/60 dark:bg-slate-900/60;
-  }
-  .btn {
-    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold
-           bg-sky-200 text-slate-900 hover:bg-sky-300
-           dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400;
-  }
   .pill {
-    @apply rounded-xl bg-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-sky-300
-           dark:bg-sky-500 dark:text-white;
+    @apply rounded-full px-4 py-2 text-sm font-bold bg-slate-100 hover:bg-slate-200 transition;
   }
+
+  .btn {
+    @apply rounded-full px-5 py-2 font-bold bg-sky-400 text-white hover:bg-sky-500 transition;
+  }
+
   .input {
-    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm
-           dark:border-slate-700 dark:bg-slate-900;
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-sky-200;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white/90 border border-slate-200 shadow-sm;
   }
 }
+
+@layer base {
+  html.dark body {
+    @apply bg-slate-900 text-slate-50;
+  }
+
+  html.dark header,
+  html.dark footer {
+    @apply bg-slate-900/85 text-slate-50;
+  }
+}
+

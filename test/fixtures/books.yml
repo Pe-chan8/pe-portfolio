@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  authors: MyString
+  publisher: MyString
+  read_on: 2026-01-09
+  published_on: 2026-01-09
+  isbn: MyString
+  google_books_id: MyString
+  summary: MyText
+
+two:
+  title: MyString
+  authors: MyString
+  publisher: MyString
+  read_on: 2026-01-09
+  published_on: 2026-01-09
+  isbn: MyString
+  google_books_id: MyString
+  summary: MyText
