@@ -1,4 +1,7 @@
 class Tag < ApplicationRecord
+  has_many :taggings, dependent: :destroy
+
+  validates :name, presence: true, uniqueness: true
   enum :kind, { app: 0, article: 1, both: 2 }
 
   scope :for_apps,     -> { where(kind: %i[app both]) }
