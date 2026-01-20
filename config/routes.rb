@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   # 一覧系
   resources :apps,     only: %i[index show]
   resources :articles, only: %i[index show]
+  resources :books, only: %i[index show]
 end
