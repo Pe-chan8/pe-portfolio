@@ -14,6 +14,63 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", book.title
   end
 
+  test "show should display book title" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "h1", text: book.title
+  end
+
+  test "show should display authors" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "p", text: /#{book.authors}/
+  end
+
+  test "show should display read_on date" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "div", text: /読了日/
+    assert_select "div", text: /#{book.read_on.strftime("%Y年%m月%d日")}/
+  end
+
+  test "show should display publisher when present" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "div", text: /出版社/
+    assert_select "div", text: /#{book.publisher}/
+  end
+
+  test "show should display isbn when present" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "div", text: /ISBN/
+    assert_select "div", text: /#{book.isbn}/
+  end
+
+  test "show should display summary when present" do
+    book = books(:ruby_book)
+    get book_url(book)
+    assert_response :success
+    assert_select "div", text: /概要・メモ/
+    assert_select "div", text: /#{book.summary}/
+  end
+
+  test "show should display tags" do
+    book = books(:ruby_book)
+    # タグを追加
+    tag = Tag.create!(name: "Ruby", kind: :book)
+    book.tags << tag
+
+    get book_url(book)
+    assert_response :success
+    assert_select "span", text: tag.name
+  end
+
   test "index should sort by read_on desc by default" do
     get books_url
     assert_response :success
