@@ -1,21 +1,28 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  authors: MyString
-  publisher: MyString
-  read_on: 2026-01-09
-  published_on: 2026-01-09
-  isbn: MyString
-  google_books_id: MyString
-  summary: MyText
+ruby_book:
+  title: "プロを目指す人のためのRuby入門"
+  authors: "伊藤淳一"
+  publisher: "技術評論社"
+  read_on: 2025-12-01
+  published_on: 2017-11-25
+  isbn: "9784774193274"
+  summary: "Rubyの基礎から実践まで学べる入門書"
 
-two:
-  title: MyString
-  authors: MyString
-  publisher: MyString
-  read_on: 2026-01-09
-  published_on: 2026-01-09
-  isbn: MyString
-  google_books_id: MyString
-  summary: MyText
+rails_book:
+  title: "現場で使える Ruby on Rails 5速習実践ガイド"
+  authors: "大場寧子"
+  publisher: "マイナビ出版"
+  read_on: 2026-01-15
+  published_on: 2018-10-19
+  isbn: "9784839962227"
+  summary: "Rails 5の実践的な開発手法を学べる"
+
+javascript_book:
+  title: "JavaScript本格入門"
+  authors: "山田祥寛"
+  publisher: "技術評論社"
+  read_on: 2025-11-20
+  published_on: 2016-09-30
+  isbn: "9784774184227"
+  summary: "JavaScriptの基礎から応用まで"
