@@ -2,7 +2,7 @@
   <h1 class="text-3xl font-extrabold"><%= @book.title %></h1>
 
   <% if @book.authors.present? %>
-    <p class="mt-2 text-lg text-slate-600 dark:text-slate-300"><%= @book.authors %></p>
+    <p class="mt-2 text-lg font-semibold text-slate-600 dark:text-slate-300"><%= @book.authors %></p>
   <% end %>
 
   <div class="mt-3 flex flex-wrap gap-2">
@@ -13,36 +13,60 @@
     <% end %>
   </div>
 
-  <div class="mt-4 space-y-2 text-sm font-semibold">
-    <div class="inline-block rounded-lg bg-slate-200 px-3 py-2 dark:bg-slate-800">
-      読了日：<%= @book.read_on %>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div>
+      <% if @book.image.attached? %>
+        <%= image_tag @book.image, class: "w-full rounded-2xl object-cover", alt: @book.title %>
+      <% else %>
+        <div class="aspect-[3/4] rounded-2xl bg-slate-200 grid place-items-center text-xl font-extrabold dark:bg-slate-800">
+          表紙画像
+        </div>
+      <% end %>
     </div>
-    <% if @book.published_on.present? %>
-      <div class="inline-block rounded-lg bg-slate-200 px-3 py-2 dark:bg-slate-800">
-        出版日：<%= @book.published_on %>
-      </div>
-    <% end %>
-    <% if @book.publisher.present? %>
-      <div class="inline-block rounded-lg bg-slate-200 px-3 py-2 dark:bg-slate-800">
-        出版社：<%= @book.publisher %>
-      </div>
-    <% end %>
-  </div>
 
-  <div class="mt-6 h-64 rounded-2xl bg-slate-200 grid place-items-center text-2xl font-extrabold dark:bg-slate-800">
-    表紙画像
+    <div class="space-y-4">
+      <div class="rounded-xl bg-sky-100 px-4 py-3 dark:bg-sky-900">
+        <div class="text-sm font-semibold text-slate-600 dark:text-slate-300">読了日</div>
+        <div class="mt-1 text-2xl font-extrabold text-sky-700 dark:text-sky-300">
+          <%= @book.read_on.strftime("%Y年%m月%d日") %>
+        </div>
+      </div>
+
+      <div class="space-y-2 text-sm">
+        <% if @book.published_on.present? %>
+          <div class="rounded-lg bg-slate-100 px-3 py-2 dark:bg-slate-900">
+            <span class="font-semibold">出版日：</span>
+            <%= @book.published_on.strftime("%Y年%m月%d日") %>
+          </div>
+        <% end %>
+
+        <% if @book.publisher.present? %>
+          <div class="rounded-lg bg-slate-100 px-3 py-2 dark:bg-slate-900">
+            <span class="font-semibold">出版社：</span>
+            <%= @book.publisher %>
+          </div>
+        <% end %>
+
+        <% if @book.isbn.present? %>
+          <div class="rounded-lg bg-slate-100 px-3 py-2 dark:bg-slate-900">
+            <span class="font-semibold">ISBN：</span>
+            <%= @book.isbn %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <% if @book.summary.present? %>
-    <div class="mt-8 rounded-xl bg-slate-100 px-4 py-3 dark:bg-slate-900">
-      <div class="text-center font-extrabold">概要</div>
-      <div class="mt-2 text-sm text-slate-700 dark:text-slate-200 whitespace-pre-wrap">
+    <div class="mt-8 rounded-xl bg-slate-100 px-5 py-4 dark:bg-slate-900">
+      <div class="text-lg font-extrabold text-center mb-3">概要・メモ</div>
+      <div class="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
         <%= @book.summary %>
       </div>
     </div>
   <% end %>
 
   <div class="mt-8">
-    <%= link_to "← Book一覧へ", books_path, class: "hover:underline text-sm" %>
+    <%= link_to "← Book一覧へ", books_path, class: "hover:underline text-sm font-semibold" %>
   </div>
 </section>
