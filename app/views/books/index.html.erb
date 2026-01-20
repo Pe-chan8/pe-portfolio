@@ -1,7 +1,17 @@
 <section class="card p-8">
-  <h1 class="text-3xl font-extrabold">Books</h1>
+  <div class="flex items-end justify-between mb-6">
+    <h1 class="text-3xl font-extrabold">Books</h1>
+
+    <div class="flex gap-2">
+      <%= link_to "読了日（新）", books_path(sort: "read_on_desc", q: params[:q]), class: "pill #{@sort == 'read_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "読了日（古）", books_path(sort: "read_on_asc", q: params[:q]), class: "pill #{@sort == 'read_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "タイトル（昇順）", books_path(sort: "title_asc", q: params[:q]), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "タイトル（降順）", books_path(sort: "title_desc", q: params[:q]), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
+    </div>
+  </div>
 
   <%= search_form_for @q, url: books_path, method: :get do |f| %>
+    <%= hidden_field_tag :sort, @sort %>
     <div class="mt-4 flex gap-3">
       <%= f.search_field :title_or_authors_or_summary_cont, placeholder: "本を検索", class: "input" %>
       <%= f.submit "検索", class: "btn" %>
