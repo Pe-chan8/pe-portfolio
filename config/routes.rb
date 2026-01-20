@@ -14,5 +14,10 @@ Rails.application.routes.draw do
   # 一覧系
   resources :apps,     only: %i[index show]
   resources :articles, only: %i[index show]
-  resources :books, only: %i[index show]
+  resources :books, only: %i[index show] do
+    collection do
+      get :search
+      post :create_from_google_books
+    end
+  end
 end

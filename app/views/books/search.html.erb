@@ -1,0 +1,98 @@
+<section class="card p-8">
+  <h1 class="text-3xl font-extrabold mb-6">Google Booksから書籍を検索</h1>
+
+  <%= form_with url: search_books_path, method: :get, local: true do |f| %>
+    <div class="flex gap-3 mb-8">
+      <%= f.text_field :query,
+          value: @query,
+          placeholder: "書籍名、著者名、ISBNで検索",
+          class: "input" %>
+      <%= f.submit "検索", class: "btn" %>
+    </div>
+  <% end %>
+
+  <% if @query.present? %>
+    <% if @results.any? %>
+      <h2 class="text-2xl font-bold mb-4">検索結果 (<%= @results.size %>件)</h2>
+
+      <div class="space-y-4">
+        <% @results.each do |result| %>
+          <div class="rounded-xl border border-slate-300 p-4 dark:border-slate-700">
+            <div class="grid gap-4 sm:grid-cols-[120px_1fr_auto]">
+              <!-- 表紙画像 -->
+              <div class="flex items-start justify-center">
+                <% if result[:thumbnail_url].present? %>
+                  <%= image_tag result[:thumbnail_url].gsub("http://", "https://"),
+                      class: "rounded-lg shadow-md w-full max-w-[120px]",
+                      alt: result[:title] %>
+                <% else %>
+                  <div class="aspect-[2/3] w-full max-w-[120px] rounded-lg bg-slate-200 grid place-items-center text-xs font-bold dark:bg-slate-800">
+                    No Image
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- 書籍情報 -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold"><%= result[:title] %></h3>
+
+                <% if result[:authors].present? %>
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                    <span class="font-semibold">著者:</span> <%= result[:authors] %>
+                  </p>
+                <% end %>
+
+                <% if result[:publisher].present? %>
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                    <span class="font-semibold">出版社:</span> <%= result[:publisher] %>
+                  </p>
+                <% end %>
+
+                <% if result[:published_date].present? %>
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                    <span class="font-semibold">出版日:</span> <%= result[:published_date] %>
+                  </p>
+                <% end %>
+
+                <% if result[:isbn].present? %>
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                    <span class="font-semibold">ISBN:</span> <%= result[:isbn] %>
+                  </p>
+                <% end %>
+
+                <% if result[:description].present? %>
+                  <p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-3 mt-2">
+                    <%= result[:description] %>
+                  </p>
+                <% end %>
+              </div>
+
+              <!-- 登録ボタン -->
+              <div class="flex items-start">
+                <%= form_with url: create_from_google_books_books_path, method: :post, local: true do |f| %>
+                  <%= hidden_field_tag "book_data[title]", result[:title] %>
+                  <%= hidden_field_tag "book_data[authors]", result[:authors] %>
+                  <%= hidden_field_tag "book_data[publisher]", result[:publisher] %>
+                  <%= hidden_field_tag "book_data[published_date]", result[:published_date] %>
+                  <%= hidden_field_tag "book_data[isbn]", result[:isbn] %>
+                  <%= hidden_field_tag "book_data[description]", result[:description] %>
+                  <%= hidden_field_tag "book_data[thumbnail_url]", result[:thumbnail_url] %>
+                  <%= hidden_field_tag :query, @query %>
+                  <%= f.submit "登録", class: "btn bg-sky-500 text-white hover:bg-sky-600" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="rounded-xl bg-slate-100 px-6 py-8 text-center dark:bg-slate-900">
+        <p class="text-slate-600 dark:text-slate-400">「<%= @query %>」の検索結果が見つかりませんでした</p>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="mt-8">
+    <%= link_to "← 書籍一覧に戻る", books_path, class: "text-sky-600 hover:underline dark:text-sky-400" %>
+  </div>
+</section>

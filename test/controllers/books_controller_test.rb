@@ -130,4 +130,84 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes books, books(:rails_book)
     assert_not_includes books, books(:javascript_book)
   end
+
+  test "should get search page" do
+    get search_books_url
+    assert_response :success
+    assert_select "h1", "Google Booksから書籍を検索"
+  end
+
+  test "search should display results when query is present" do
+    # Mock Google Books API response
+    mock_response = {
+      "items" => [
+        {
+          "id" => "test123",
+          "volumeInfo" => {
+            "title" => "テスト書籍",
+            "authors" => [ "テスト著者" ],
+            "publisher" => "テスト出版社",
+            "publishedDate" => "2024-01-01",
+            "description" => "テスト説明",
+            "industryIdentifiers" => [
+              { "type" => "ISBN_13", "identifier" => "9784567890123" }
+            ],
+            "imageLinks" => {
+              "thumbnail" => "http://example.com/thumb.jpg"
+            }
+          }
+        }
+      ]
+    }.to_json
+
+    stub_request(:get, /googleapis.com/)
+      .to_return(status: 200, body: mock_response, headers: { "Content-Type" => "application/json" })
+
+    get search_books_url(query: "テスト")
+    assert_response :success
+    assert_select "h2", text: /検索結果/
+  end
+
+  test "create_from_google_books should create book with image" do
+    # Mock image download
+    stub_request(:get, "https://example.com/cover.jpg")
+      .to_return(status: 200, body: "fake image data", headers: { "Content-Type" => "image/jpeg" })
+
+    book_data = {
+      title: "新しい書籍",
+      authors: "著者名",
+      publisher: "出版社",
+      published_date: "2024-01-01",
+      isbn: "9781234567890",
+      description: "書籍の説明",
+      thumbnail_url: "https://example.com/cover.jpg"
+    }
+
+    assert_difference("Book.count", 1) do
+      post create_from_google_books_books_url, params: { book_data: book_data, query: "test" }
+    end
+
+    assert_redirected_to book_path(Book.last)
+
+    book = Book.last
+    assert_equal "新しい書籍", book.title
+    assert_equal "著者名", book.authors
+    assert_equal "出版社", book.publisher
+    assert_equal "9781234567890", book.isbn
+    assert_equal "書籍の説明", book.summary
+    assert book.image.attached?
+  end
+
+  test "create_from_google_books should handle invalid data" do
+    book_data = {
+      title: "",
+      authors: "著者名"
+    }
+
+    assert_no_difference("Book.count") do
+      post create_from_google_books_books_url, params: { book_data: book_data, query: "test" }
+    end
+
+    assert_response :unprocessable_entity
+  end
 end

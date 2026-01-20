@@ -23,4 +23,65 @@ class BooksController < ApplicationController
   def show
     @book = Book.includes(:tags).find(params[:id])
   end
+
+  def search
+    @query = params[:query]
+    @results = []
+
+    if @query.present?
+      client = GoogleBooksClient.new
+      @results = client.search(@query)
+    end
+  end
+
+  def create_from_google_books
+    book_data = params[:book_data]
+
+    @book = Book.new(
+      title: book_data[:title],
+      authors: book_data[:authors],
+      publisher: book_data[:publisher],
+      published_on: parse_published_date(book_data[:published_date]),
+      isbn: book_data[:isbn],
+      summary: book_data[:description],
+      read_on: Date.current
+    )
+
+    if book_data[:thumbnail_url].present?
+      attach_image_from_url(@book, book_data[:thumbnail_url])
+    end
+
+    if @book.save
+      redirect_to book_path(@book), notice: "書籍を登録しました"
+    else
+      @query = params[:query]
+      client = GoogleBooksClient.new
+      @results = client.search(@query) if @query.present?
+      render :search, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def parse_published_date(date_string)
+    return nil if date_string.blank?
+
+    Date.parse(date_string)
+  rescue ArgumentError
+    nil
+  end
+
+  def attach_image_from_url(book, url)
+    uri = URI.parse(url.gsub("http://", "https://"))
+    image_data = Net::HTTP.get(uri)
+    filename = "#{SecureRandom.uuid}.jpg"
+
+    book.image.attach(
+      io: StringIO.new(image_data),
+      filename: filename,
+      content_type: "image/jpeg"
+    )
+  rescue StandardError => e
+    Rails.logger.error("Failed to attach image: #{e.message}")
+  end
 end
