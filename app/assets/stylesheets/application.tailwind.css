@@ -147,5 +147,65 @@
   .hero-scroll-hint {
     @apply absolute bottom-8 w-full text-center text-sm opacity-80;
   }
+
+  /* ===== TOPページ全画面ヒーロー ===== */
+  .hero-fullscreen {
+    @apply relative w-full flex flex-col items-center justify-center text-white;
+    min-height: calc(100vh - 144px); /* ヘッダー・フッター分を引く */
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+  }
+
+  /* 背景画像 */
+  .hero-bg-image {
+    @apply absolute inset-0;
+    background-image: url('/hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  /* ダークモード時の背景画像 */
+  html.dark .hero-bg-image {
+    filter: brightness(0.6) saturate(0.8);
+  }
+
+  /* ===== フッターボタン統一スタイル ===== */
+  .footer-btn {
+    @apply inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200;
+    @apply text-slate-700 hover:bg-sky-200/50 hover:text-sky-800;
+    @apply dark:text-slate-300 dark:hover:bg-slate-700/50 dark:hover:text-sky-300;
+  }
+
+  /* テーマ切替ボタン（縦並び：アイコン上・文言下） */
+  .theme-btn-vertical {
+    @apply flex-col items-center justify-center gap-0.5;
+  }
+
+  .theme-btn-vertical .theme-icon {
+    @apply text-lg leading-none;
+  }
+
+  .theme-btn-vertical .theme-label {
+    @apply text-xs;
+  }
+
+  /* ライトモード：太陽アイコン表示、月アイコン非表示 */
+  .theme-icon-light {
+    @apply inline;
+  }
+  .theme-icon-dark {
+    @apply hidden;
+  }
+
+  /* ダークモード：月アイコン表示、太陽アイコン非表示 */
+  html.dark .theme-icon-light {
+    @apply hidden;
+  }
+  html.dark .theme-icon-dark {
+    @apply inline;
+  }
 }
 

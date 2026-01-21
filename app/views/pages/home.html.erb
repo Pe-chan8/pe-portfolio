@@ -1,5 +1,7 @@
 <%# TOPページ: 背景画像を上から下まで全画面表示 %>
-<section class="hero-section" style="background-image: url('/hero.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+<section class="hero-fullscreen">
+  <%# 背景画像 %>
+  <div class="hero-bg-image"></div>
   <%# オーバーレイ（ライト/ダークモードで切り替え） %>
   <div class="hero-overlay"></div>
 
@@ -10,14 +12,9 @@
       ペーちゃん's Portfolio
     </h1>
 
-    <p class="mb-8 text-lg opacity-90">
+    <p class="text-lg opacity-90">
       個人開発を通して、人の「負」を軽くするプロダクトを作っています
     </p>
-
-    <div class="flex flex-wrap justify-center gap-4">
-      <%= link_to "ABOUT", about_path, class: "hero-btn", title: "自己紹介・経歴を見る" %>
-      <%= link_to "APP", apps_path, class: "hero-btn", title: "作ったアプリを見る" %>
-    </div>
   </div>
 
   <div class="hero-scroll-hint">
