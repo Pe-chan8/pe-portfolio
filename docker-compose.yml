@@ -11,6 +11,8 @@ services:
       - "5432:5432"
 
   web:
+    env_file:
+      - .env
     build: .
     environment:
       RAILS_ENV: development
