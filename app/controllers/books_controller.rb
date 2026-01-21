@@ -28,6 +28,7 @@ class BooksController < ApplicationController
   def search
     @query = params[:query]
     @results = []
+    @book_tags = Tag.for_books
 
     if @query.present?
       client = GoogleBooksClient.new
@@ -53,9 +54,16 @@ class BooksController < ApplicationController
     end
 
     if @book.save
+      # タグを関連付け
+      if book_data[:tag_ids].present?
+        tag_ids = book_data[:tag_ids].reject(&:blank?)
+        @book.tags = Tag.where(id: tag_ids)
+      end
+
       redirect_to book_path(@book), notice: "書籍を登録しました"
     else
       @query = params[:query]
+      @book_tags = Tag.for_books
       client = GoogleBooksClient.new
       @results = client.search(@query) if @query.present?
       render :search, status: :unprocessable_entity

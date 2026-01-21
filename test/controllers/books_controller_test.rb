@@ -215,4 +215,72 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "create_from_google_books should create book with tags" do
+    ruby_tag = tags(:ruby_tag)
+
+    book_data = {
+      title: "タグ付き書籍",
+      authors: "著者名",
+      publisher: "出版社",
+      published_date: "2024-01-01",
+      isbn: "9781234567891",
+      description: "書籍の説明",
+      tag_ids: [ ruby_tag.id.to_s ]
+    }
+
+    assert_difference("Book.count", 1) do
+      post create_from_google_books_books_url, params: { book_data: book_data, query: "test" }
+    end
+
+    book = Book.last
+    assert_equal "タグ付き書籍", book.title
+    assert_includes book.tags, ruby_tag
+  end
+
+  test "create_from_google_books should create book with multiple tags" do
+    ruby_tag = tags(:ruby_tag)
+    rails_tag = tags(:rails_tag)
+
+    book_data = {
+      title: "複数タグ付き書籍",
+      authors: "著者名",
+      tag_ids: [ ruby_tag.id.to_s, rails_tag.id.to_s ]
+    }
+
+    assert_difference("Book.count", 1) do
+      post create_from_google_books_books_url, params: { book_data: book_data, query: "test" }
+    end
+
+    book = Book.last
+    assert_equal 2, book.tags.count
+    assert_includes book.tags, ruby_tag
+    assert_includes book.tags, rails_tag
+  end
+
+  test "search page should display tag checkboxes" do
+    # Mock Google Books API response
+    mock_response = {
+      "items" => [
+        {
+          "id" => "test123",
+          "volumeInfo" => {
+            "title" => "テスト書籍",
+            "authors" => [ "テスト著者" ]
+          }
+        }
+      ]
+    }.to_json
+
+    stub_request(:get, /googleapis.com/)
+      .to_return(status: 200, body: mock_response, headers: { "Content-Type" => "application/json" })
+
+    get search_books_url(query: "テスト")
+    assert_response :success
+
+    # タグが存在する場合、チェックボックスが表示される
+    Tag.for_books.each do |tag|
+      assert_select "label", text: /#{tag.name}/
+    end
+  end
 end
