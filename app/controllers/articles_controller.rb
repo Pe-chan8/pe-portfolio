@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
     @q = Article.ransack(params[:q])
     @view = params[:view].presence_in(%w[grid list]) || "grid"
     @sort = params[:sort].presence_in(%w[title_asc title_desc published_on_desc published_on_asc created_at_desc created_at_asc]) || "published_on_desc"
+    @search_params = params[:q]&.to_unsafe_h || {}
 
     articles = @q.result(distinct: true).includes(:tags)
     @articles = case @sort

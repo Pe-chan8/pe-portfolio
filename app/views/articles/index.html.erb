@@ -3,16 +3,16 @@
     <h1 class="text-3xl font-extrabold">Articles</h1>
 
     <div class="flex gap-2">
-      <%= link_to "カード", articles_path(view: "grid", sort: @sort, q: params[:q]), class: "pill #{@view == 'grid' ? 'bg-sky-500 text-white' : ''}" %>
-      <%= link_to "リスト", articles_path(view: "list", sort: @sort, q: params[:q]), class: "pill #{@view == 'list' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "カード", articles_path(view: "grid", sort: @sort, q: @search_params), class: "pill #{@view == 'grid' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "リスト", articles_path(view: "list", sort: @sort, q: @search_params), class: "pill #{@view == 'list' ? 'bg-sky-500 text-white' : ''}" %>
     </div>
   </div>
 
   <div class="mb-6 flex flex-wrap gap-2">
-    <%= link_to "書いた日（新）", articles_path(sort: "published_on_desc", view: @view, q: params[:q]), class: "pill #{@sort == 'published_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "書いた日（古）", articles_path(sort: "published_on_asc", view: @view, q: params[:q]), class: "pill #{@sort == 'published_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "タイトル（昇順）", articles_path(sort: "title_asc", view: @view, q: params[:q]), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "タイトル（降順）", articles_path(sort: "title_desc", view: @view, q: params[:q]), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
+    <%= link_to "書いた日（新）", articles_path(sort: "published_on_desc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
+    <%= link_to "書いた日（古）", articles_path(sort: "published_on_asc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
+    <%= link_to "タイトル（昇順）", articles_path(sort: "title_asc", view: @view, q: @search_params), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
+    <%= link_to "タイトル（降順）", articles_path(sort: "title_desc", view: @view, q: @search_params), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
   </div>
 
   <%= search_form_for @q, url: articles_path, method: :get do |f| %>

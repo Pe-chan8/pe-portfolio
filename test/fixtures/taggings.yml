@@ -1,11 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  tag: one
-  taggable: one
-  taggable_type: Taggable
+ruby_book_ruby_tag:
+  tag: ruby_tag
+  taggable: ruby_book (Book)
 
-two:
-  tag: two
-  taggable: two
-  taggable_type: Taggable
+rails_book_rails_tag:
+  tag: rails_tag
+  taggable: rails_book (Book)
