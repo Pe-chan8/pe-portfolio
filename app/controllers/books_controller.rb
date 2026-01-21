@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   def index
     @q = Book.ransack(params[:q])
     @sort = params[:sort].presence_in(%w[title_asc title_desc read_on_desc read_on_asc published_on_desc published_on_asc]) || "read_on_desc"
+    @search_params = params[:q]&.to_unsafe_h || {}
 
     books = @q.result(distinct: true).includes(:tags)
     @books = case @sort

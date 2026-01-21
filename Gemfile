@@ -67,8 +67,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webmock"
   gem "minitest", "~> 5.20"
+  gem "rails-controller-testing"
 end
 
 gem "ransack"
 gem "rails_admin", "~> 3.0"
-gem "sassc-rails"

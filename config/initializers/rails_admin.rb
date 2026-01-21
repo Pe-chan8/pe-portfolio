@@ -1,5 +1,5 @@
 RailsAdmin.config do |config|
-  config.asset_source = :sprockets
+  config.asset_source = :webpacker
 
   # /admin を Basic認証で保護
   config.authenticate_with do
