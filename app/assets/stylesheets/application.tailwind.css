@@ -4,32 +4,148 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .pill {
-    @apply rounded-full px-4 py-2 text-sm font-bold bg-slate-100 hover:bg-slate-200 transition;
+@layer base {
+  /* ライトモード: 晴れた空、ひだまり、ひまわり、花畑、水族館、ペンギン */
+  body {
+    @apply bg-gradient-to-b from-sky-200 via-sky-100 to-amber-50;
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
-  .btn {
-    @apply rounded-full px-5 py-2 font-bold bg-sky-400 text-white hover:bg-sky-500 transition;
-  }
-
-  .input {
-    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-sky-200;
-  }
-
-  .card {
-    @apply rounded-2xl bg-white/90 border border-slate-200 shadow-sm;
+  /* ダークモード: 星空、静かに輝く海、花畑、ペンギン */
+  html.dark body {
+    @apply bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-900 text-slate-50;
+    background-attachment: fixed;
   }
 }
 
-@layer base {
-  html.dark body {
-    @apply bg-slate-900 text-slate-50;
+@layer components {
+  /* ナビゲーションピル */
+  .nav-pill {
+    @apply rounded-full px-4 py-2 text-sm font-bold transition-all duration-200;
+    @apply bg-white/80 text-sky-700 hover:bg-sky-200 hover:text-sky-900;
+    @apply dark:bg-slate-700/80 dark:text-sky-300 dark:hover:bg-slate-600 dark:hover:text-sky-200;
   }
 
-  html.dark header,
-  html.dark footer {
-    @apply bg-slate-900/85 text-slate-50;
+  /* 既存のpill (互換性のため残す) */
+  .pill {
+    @apply rounded-full px-4 py-2 text-sm font-bold transition;
+    @apply bg-slate-100 hover:bg-slate-200;
+    @apply dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600;
+  }
+
+  .btn {
+    @apply rounded-full px-5 py-2 font-bold transition;
+    @apply bg-sky-400 text-white hover:bg-sky-500;
+    @apply dark:bg-sky-600 dark:hover:bg-sky-500;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border px-4 py-3 outline-none transition;
+    @apply border-slate-200 bg-white focus:ring-2 focus:ring-sky-200;
+    @apply dark:border-slate-600 dark:bg-slate-800 dark:focus:ring-sky-600;
+  }
+
+  .card {
+    @apply rounded-2xl border shadow-sm;
+    @apply bg-white/95 border-slate-200;
+    @apply dark:bg-slate-800/95 dark:border-slate-700;
+  }
+
+  /* フッターリンク */
+  .footer-link {
+    @apply flex items-center gap-1.5 transition-colors;
+    @apply text-slate-600 hover:text-sky-600;
+    @apply dark:text-slate-400 dark:hover:text-sky-400;
+  }
+
+  /* テーマ切替ボタン */
+  .theme-toggle-btn {
+    @apply relative w-14 h-8 rounded-full transition-all duration-300 cursor-pointer overflow-hidden;
+    @apply bg-gradient-to-r from-amber-300 to-sky-300 border-2 border-amber-400;
+    @apply dark:from-indigo-600 dark:to-slate-700 dark:border-indigo-500;
+  }
+
+  .theme-toggle-btn .theme-icon-light,
+  .theme-toggle-btn .theme-icon-dark {
+    @apply absolute top-1/2 -translate-y-1/2 text-lg transition-all duration-300;
+  }
+
+  .theme-toggle-btn .theme-icon-light {
+    @apply left-1.5 opacity-100;
+  }
+
+  .theme-toggle-btn .theme-icon-dark {
+    @apply right-1.5 opacity-30;
+  }
+
+  html.dark .theme-toggle-btn .theme-icon-light {
+    @apply opacity-30;
+  }
+
+  html.dark .theme-toggle-btn .theme-icon-dark {
+    @apply opacity-100;
+  }
+
+  /* ヒーローセクション（TOPページ） */
+  .hero-section {
+    @apply relative w-full min-h-[calc(100vh-144px)] flex items-center justify-center text-white;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+  }
+
+  .hero-bg {
+    @apply absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500;
+  }
+
+  .hero-bg-light {
+    background-image: url('/hero.png');
+    @apply opacity-100;
+  }
+
+  /* ダークモード時も同じ画像を使用（オーバーレイで雰囲気を変える） */
+  .hero-bg-dark {
+    background-image: url('/hero.png');
+    @apply opacity-0;
+    filter: brightness(0.6) saturate(0.8) hue-rotate(200deg);
+  }
+
+  html.dark .hero-bg-light {
+    @apply opacity-0;
+  }
+
+  html.dark .hero-bg-dark {
+    @apply opacity-100;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0 transition-colors duration-500;
+    background: linear-gradient(to bottom, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.3));
+  }
+
+  html.dark .hero-overlay {
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(30, 27, 75, 0.5));
+  }
+
+  .hero-content {
+    @apply relative z-10 max-w-3xl text-center px-6;
+  }
+
+  .hero-btn {
+    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
+    @apply bg-white/90 text-sky-700 hover:bg-white hover:scale-105;
+    @apply dark:bg-slate-800/90 dark:text-sky-300 dark:hover:bg-slate-700;
+  }
+
+  .hero-btn-outline {
+    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
+    @apply bg-transparent border-2 border-white/80 text-white hover:bg-white/20 hover:scale-105;
+    @apply dark:border-sky-400/60 dark:text-sky-300 dark:hover:bg-sky-400/20;
+  }
+
+  .hero-scroll-hint {
+    @apply absolute bottom-8 w-full text-center text-sm opacity-80;
   }
 }
 
