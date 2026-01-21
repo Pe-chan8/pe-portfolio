@@ -52,5 +52,8 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Disable Sass compilation in test environment to avoid sassc-rails/tailwind conflict
-  config.sass.inline_source_maps = false if config.respond_to?(:sass)
+  if config.respond_to?(:sass)
+    config.sass.inline_source_maps = false
+    config.sass.style = :compressed
+  end
 end
