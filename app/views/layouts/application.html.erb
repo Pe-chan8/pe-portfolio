@@ -24,52 +24,65 @@
 
   <body class="min-h-dvh text-slate-900 dark:text-slate-100" data-controller="theme">
     <div class="min-h-dvh flex flex-col">
-      <%# ===== Fixed Header (端から端まで、不透明背景) ===== %>
+      <%# ===== Fixed Header ===== %>
+      <%# ヘッダー: TOP/ABOUT/APP/記事/BOOKS %>
       <header class="fixed top-0 left-0 right-0 z-50 w-full bg-sky-100 dark:bg-slate-800 border-b border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <nav class="flex flex-wrap gap-2">
-              <%= link_to "TOP", root_path, class: "nav-pill" %>
-              <%= link_to "ABOUT", about_path, class: "nav-pill" %>
-              <%= link_to "APP", apps_path, class: "nav-pill" %>
-              <%= link_to "記事", articles_path, class: "nav-pill" %>
-              <%= link_to "BOOKS", books_path, class: "nav-pill" %>
-              <%= link_to "問い合わせ", contact_path, class: "nav-pill" %>
+          <div class="flex items-center justify-center">
+            <nav class="flex flex-wrap justify-center gap-2">
+              <%= link_to root_path, class: "nav-pill-fixed", title: "トップページ" do %>
+                <span>TOP</span>
+              <% end %>
+              <%= link_to about_path, class: "nav-pill-fixed", title: "自己紹介・経歴" do %>
+                <span>ABOUT</span>
+              <% end %>
+              <%= link_to apps_path, class: "nav-pill-fixed", title: "作ったアプリ" do %>
+                <span>APP</span>
+              <% end %>
+              <%= link_to articles_path, class: "nav-pill-fixed", title: "書いた記事" do %>
+                <span>記事</span>
+              <% end %>
+              <%= link_to books_path, class: "nav-pill-fixed", title: "読んだ本・学習記録" do %>
+                <span>BOOKS</span>
+              <% end %>
             </nav>
-
-            <%# テーマ切替ボタン %>
-            <button class="theme-toggle-btn" data-action="click->theme#toggle" data-theme-target="button" title="テーマ切替">
-              <span class="theme-icon-light">☀️</span>
-              <span class="theme-icon-dark">🌙</span>
-              <span class="sr-only" data-theme-target="label">テーマ切替</span>
-            </button>
           </div>
         </div>
       </header>
 
-      <%# ===== Main (space for fixed header/footer) ===== %>
+      <%# ===== Main ===== %>
       <main class="flex-1 pt-16 pb-20">
         <%= yield %>
       </main>
 
-      <%# ===== Fixed Footer (端から端まで、不透明背景) ===== %>
+      <%# ===== Fixed Footer ===== %>
+      <%# フッター: GitHub/X/問い合わせ/テーマ切替 %>
       <footer class="fixed bottom-0 left-0 right-0 z-40 w-full bg-sky-100 dark:bg-slate-800 border-t border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex flex-wrap items-center justify-between gap-4 text-sm">
             <span class="text-slate-600 dark:text-slate-400">&copy; <%= Date.current.year %> Pe-chan</span>
             <div class="flex flex-wrap items-center gap-4">
-              <a class="footer-link" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer">
+              <%# GitHub %>
+              <a class="footer-link" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 <span>GitHub</span>
               </a>
-              <a class="footer-link" href="https://x.com/hr892837" target="_blank" rel="noreferrer">
+              <%# X (Twitter) %>
+              <a class="footer-link" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 <span>X</span>
               </a>
-              <%= link_to contact_path, class: "footer-link" do %>
+              <%# 問い合わせ (Googleフォーム) %>
+              <a class="footer-link" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 <span>問い合わせ</span>
-              <% end %>
+              </a>
+              <%# テーマ切替ボタン %>
+              <button class="theme-toggle-btn" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
+                <span class="theme-icon-light">☀️</span>
+                <span class="theme-icon-dark">🌙</span>
+                <span class="sr-only" data-theme-target="label">テーマ切替</span>
+              </button>
             </div>
           </div>
         </div>

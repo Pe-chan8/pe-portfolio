@@ -1,10 +1,6 @@
-<%# TOPページ: 背景画像を上から下まで表示 %>
-<section class="hero-section">
-  <%# 背景画像（ライトモード用） %>
-  <div class="hero-bg hero-bg-light"></div>
-  <%# 背景画像（ダークモード用） %>
-  <div class="hero-bg hero-bg-dark"></div>
-  <%# オーバーレイ %>
+<%# TOPページ: 背景画像を上から下まで全画面表示 %>
+<section class="hero-section" style="background-image: url('/hero.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <%# オーバーレイ（ライト/ダークモードで切り替え） %>
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
@@ -19,9 +15,8 @@
     </p>
 
     <div class="flex flex-wrap justify-center gap-4">
-      <%= link_to "ABOUT", about_path, class: "hero-btn" %>
-      <%= link_to "APP", apps_path, class: "hero-btn" %>
-      <%= link_to "問い合わせ", contact_path, class: "hero-btn-outline" %>
+      <%= link_to "ABOUT", about_path, class: "hero-btn", title: "自己紹介・経歴を見る" %>
+      <%= link_to "APP", apps_path, class: "hero-btn", title: "作ったアプリを見る" %>
     </div>
   </div>
 
