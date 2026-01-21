@@ -31,8 +31,7 @@ class BooksController < ApplicationController
     @book_tags = Tag.for_books
 
     if @query.present?
-      client = GoogleBooksClient.new
-      @results = client.search(@query)
+      @results = Book.search_google_books(@query)
     end
   end
 
@@ -64,8 +63,7 @@ class BooksController < ApplicationController
     else
       @query = params[:query]
       @book_tags = Tag.for_books
-      client = GoogleBooksClient.new
-      @results = client.search(@query) if @query.present?
+      @results = Book.search_google_books(@query) if @query.present?
       render :search, status: :unprocessable_entity
     end
   end
