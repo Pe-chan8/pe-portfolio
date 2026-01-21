@@ -67,8 +67,8 @@
                 <% end %>
               </div>
 
-              <!-- 登録ボタン -->
-              <div class="flex items-start">
+              <!-- タグ選択 & 登録ボタン -->
+              <div class="flex flex-col gap-3">
                 <%= form_with url: create_from_google_books_books_path, method: :post, local: true do |f| %>
                   <%= hidden_field_tag "book_data[title]", result[:title] %>
                   <%= hidden_field_tag "book_data[authors]", result[:authors] %>
@@ -78,6 +78,18 @@
                   <%= hidden_field_tag "book_data[description]", result[:description] %>
                   <%= hidden_field_tag "book_data[thumbnail_url]", result[:thumbnail_url] %>
                   <%= hidden_field_tag :query, @query %>
+
+                  <% if @book_tags.any? %>
+                    <div class="flex flex-wrap gap-2">
+                      <% @book_tags.each do |tag| %>
+                        <label class="pill flex items-center gap-1 cursor-pointer">
+                          <%= check_box_tag "book_data[tag_ids][]", tag.id, false, id: "tag_#{result[:isbn]}_#{tag.id}" %>
+                          <%= tag.name %>
+                        </label>
+                      <% end %>
+                    </div>
+                  <% end %>
+
                   <%= f.submit "登録", class: "btn bg-sky-500 text-white hover:bg-sky-600" %>
                 <% end %>
               </div>
