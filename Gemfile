@@ -66,6 +66,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webmock"
+  gem "minitest", "~> 5.20"
 end
 
 gem "ransack"

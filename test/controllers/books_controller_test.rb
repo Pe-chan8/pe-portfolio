@@ -62,9 +62,9 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "show should display tags" do
     book = books(:ruby_book)
-    # タグを追加
-    tag = Tag.create!(name: "Ruby", kind: :book)
-    book.tags << tag
+    # fixtureのタグを使用
+    tag = tags(:ruby_tag)
+    book.tags << tag unless book.tags.include?(tag)
 
     get book_url(book)
     assert_response :success
@@ -199,6 +199,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create_from_google_books should handle invalid data" do
+    # Mock Google Books API response for re-render
+    mock_response = { "items" => [] }.to_json
+    stub_request(:get, /googleapis.com/)
+      .to_return(status: 200, body: mock_response, headers: { "Content-Type" => "application/json" })
+
     book_data = {
       title: "",
       authors: "著者名"

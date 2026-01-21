@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+ruby_tag:
+  name: Ruby
+  kind: book
 
-two:
-  name: MyString
+rails_tag:
+  name: Rails
+  kind: book
