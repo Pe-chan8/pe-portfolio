@@ -81,6 +81,21 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build JavaScript
+        run: npm run build
+
+      - name: Build CSS
+        run: npm run build:css
+
       - name: Run tests
         env:
           RAILS_ENV: test
@@ -123,6 +138,21 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build JavaScript
+        run: npm run build
+
+      - name: Build CSS
+        run: npm run build:css
 
       - name: Run System Tests
         env:
