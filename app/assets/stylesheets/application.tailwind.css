@@ -112,6 +112,7 @@
       rgba(56, 189, 248, 0.15),
       rgba(251, 191, 36, 0.1)
     );
+    z-index: 1;
   }
 
   /* ダークモード: オーバーレイ - 星空、静かに輝く海イメージ */
@@ -129,7 +130,7 @@
   }
 
   .hero-content {
-    @apply relative z-10 max-w-3xl text-center px-6;
+    @apply relative z-10 max-w-3xl text-center px-6 py-8;
   }
 
   .hero-btn {
@@ -146,20 +147,20 @@
 
   .hero-scroll-hint {
     @apply absolute bottom-8 w-full text-center text-sm opacity-80;
+    z-index: 10;
   }
 
   /* ===== TOPページ全画面ヒーロー ===== */
   .hero-fullscreen {
-    @apply relative w-full flex flex-col items-center justify-center text-white;
-    min-height: calc(100vh - 144px); /* ヘッダー・フッター分を引く */
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    width: 100vw;
+    @apply relative flex flex-col items-center justify-center text-white;
+    min-height: calc(100vh - 208px); /* ヘッダー(96px) + フッター(112px)分を引く */
+    width: 100%;
+    overflow: hidden;
   }
 
   /* 背景画像 */
   .hero-bg-image {
-    @apply absolute inset-0;
+    @apply absolute top-0 left-0 w-full h-full;
     background-image: url('/hero.png');
     background-size: cover;
     background-position: center;
