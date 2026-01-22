@@ -29,26 +29,21 @@
       <header class="fixed top-0 left-0 right-0 z-50 w-full bg-sky-100 dark:bg-slate-800 border-b border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex items-center justify-center">
-            <nav class="flex flex-wrap justify-center gap-1.5">
-              <%= link_to root_path, class: "nav-pill-fixed", title: "トップページ" do %>
-                <%= image_tag "top.png", alt: "TOP", class: "h-4 w-4" %>
-                <span>TOP</span>
+            <nav class="flex flex-wrap justify-center gap-2">
+              <%= link_to root_path, class: "nav-btn", title: "トップページ" do %>
+                <%= image_tag "top.png", alt: "TOP", class: "h-6 object-contain" %>
               <% end %>
-              <%= link_to about_path, class: "nav-pill-fixed", title: "自己紹介・経歴" do %>
-                <%= image_tag "about_me.png", alt: "自己紹介", class: "h-4 w-4" %>
-                <span>自己紹介</span>
+              <%= link_to about_path, class: "nav-btn", title: "自己紹介・経歴" do %>
+                <%= image_tag "about_me.png", alt: "自己紹介", class: "h-6 object-contain" %>
               <% end %>
-              <%= link_to apps_path, class: "nav-pill-fixed", title: "作ったアプリ紹介" do %>
-                <%= image_tag "app_log.png", alt: "アプリ", class: "h-4 w-4" %>
-                <span>アプリ</span>
+              <%= link_to apps_path, class: "nav-btn", title: "作ったアプリ紹介" do %>
+                <%= image_tag "app_log.png", alt: "アプリ", class: "h-6 object-contain" %>
               <% end %>
-              <%= link_to articles_path, class: "nav-pill-fixed", title: "書いた記事" do %>
-                <%= image_tag "article.png", alt: "記事", class: "h-4 w-4" %>
-                <span>記事</span>
+              <%= link_to articles_path, class: "nav-btn", title: "書いた記事" do %>
+                <%= image_tag "article.png", alt: "記事", class: "h-6 object-contain" %>
               <% end %>
-              <%= link_to books_path, class: "nav-pill-fixed", title: "読んだ本・Udemy学習記録" do %>
-                <%= image_tag "learning_log.png", alt: "学習記録", class: "h-4 w-4" %>
-                <span>学習記録</span>
+              <%= link_to books_path, class: "nav-btn", title: "読んだ本・Udemy学習記録" do %>
+                <%= image_tag "learning_log.png", alt: "学習記録", class: "h-6 object-contain" %>
               <% end %>
             </nav>
           </div>
@@ -69,23 +64,19 @@
             <div class="flex flex-wrap items-center gap-2">
               <%# GitHub %>
               <a class="footer-btn" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
-                <%= image_tag "github.png", alt: "GitHub", class: "h-4 w-4" %>
-                <span>GitHub</span>
+                <%= image_tag "github.png", alt: "GitHub", class: "h-5 object-contain" %>
               </a>
               <%# X (Twitter) %>
               <a class="footer-btn" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
-                <%= image_tag "X.png", alt: "X", class: "h-4 w-4" %>
-                <span>X</span>
+                <%= image_tag "X.png", alt: "X", class: "h-5 object-contain" %>
               </a>
               <%# 問い合わせ (Googleフォーム) %>
               <a class="footer-btn" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム（Googleフォーム）">
-                <%= image_tag "inquiry.png", alt: "問い合わせ", class: "h-4 w-4" %>
-                <span>問い合わせ</span>
+                <%= image_tag "inquiry.png", alt: "問い合わせ", class: "h-5 object-contain" %>
               </a>
               <%# テーマ切替ボタン %>
               <button class="footer-btn" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
-                <%= image_tag "mode.png", alt: "テーマ切替", class: "h-4 w-4" %>
-                <span data-theme-target="label">テーマ</span>
+                <%= image_tag "mode.png", alt: "テーマ切替", class: "h-5 object-contain" %>
               </button>
             </div>
           </div>
