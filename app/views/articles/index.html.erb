@@ -58,7 +58,7 @@
             <p class="text-sm font-bold text-center">
               <%= article.published_on || "日付未設定" %>
             </p>
-            <h2 class="mt-2 text-center font-bold flex-1"><%= article.title %></h2>
+            <h2 class="mt-2 text-center font-bold min-h-[48px] flex items-center justify-center"><%= article.title %></h2>
             <div class="mt-auto pt-4">
               <%= link_to "詳細を見る", article_path(article), class: "btn w-full" %>
             </div>

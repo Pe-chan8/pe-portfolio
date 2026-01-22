@@ -33,13 +33,11 @@
             表紙
           </div>
 
-          <h2 class="mt-3 text-center font-bold"><%= book.title %></h2>
+          <h2 class="mt-3 text-center font-bold min-h-[48px] flex items-center justify-center"><%= book.title %></h2>
 
-          <% if book.authors.present? %>
-            <p class="mt-1 text-center text-sm text-slate-600 dark:text-slate-400">
-              <%= book.authors %>
-            </p>
-          <% end %>
+          <p class="mt-1 text-center text-sm text-slate-600 dark:text-slate-400 min-h-[20px]">
+            <%= book.authors.presence || "&nbsp;".html_safe %>
+          </p>
 
           <div class="mt-3 flex flex-wrap gap-2 min-h-[28px]">
             <% book.tags.each do |tag| %>

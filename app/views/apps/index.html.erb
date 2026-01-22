@@ -21,11 +21,11 @@
     <div class="mt-8 grid gap-6 sm:grid-cols-2">
       <% @apps.each do |app| %>
         <div class="flex flex-col rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
-          <div class="rounded-xl bg-white p-3 text-center font-bold dark:bg-slate-800">
+          <div class="rounded-xl bg-white p-3 text-center font-bold dark:bg-slate-800 min-h-[48px] flex items-center justify-center">
             <%= app.title %>
           </div>
 
-          <div class="mt-2 flex flex-wrap gap-2 min-h-[28px]">
+          <div class="mt-2 flex flex-wrap gap-2 min-h-[56px]">
             <% app.tags.each do |tag| %>
               <span class="rounded-full bg-sky-200 px-2 py-1 text-xs font-semibold text-slate-900 dark:bg-sky-500 dark:text-white">
                 <%= tag.name %>
