@@ -1,18 +1,23 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button"]
+  static targets = ["button", "label"]
 
   connect() {
+    // ページ読み込み時に保存されたテーマを適用
     const saved = localStorage.getItem("theme")
-    if (saved) this.apply(saved)
-    this.updateButton()
+    if (saved) {
+      this.apply(saved)
+    } else {
+      // システム設定に基づいてデフォルトを設定
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      this.apply(prefersDark ? "dark" : "light")
+    }
   }
 
   toggle() {
     const isDark = document.documentElement.classList.contains("dark")
     this.apply(isDark ? "light" : "dark")
-    this.updateButton()
   }
 
   apply(mode) {
@@ -23,10 +28,10 @@ export default class extends Controller {
       document.documentElement.classList.remove("dark")
       localStorage.setItem("theme", "light")
     }
-  }
 
-  updateButton() {
-    const isDark = document.documentElement.classList.contains("dark")
-    if (this.hasButtonTarget) this.buttonTarget.textContent = isDark ? "Light Mode" : "Dark Mode"
+    // ラベルを更新（存在する場合）
+    if (this.hasLabelTarget) {
+      this.labelTarget.textContent = mode === "dark" ? "ライトモードに切替" : "ダークモードに切替"
+    }
   }
 }

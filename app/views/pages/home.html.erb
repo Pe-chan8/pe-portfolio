@@ -1,23 +1,26 @@
-<section
-  class="relative h-[calc(100vh-128px)] w-full flex items-center justify-center text-white"
-  style="background-image: url('/hero.png'); background-size: cover; background-position: center;"
->
-  <div class="absolute inset-0 bg-black/40"></div>
+<%# TOPページ: 背景画像を上から下まで全画面表示 %>
+<section class="mx-auto w-full max-w-5xl px-6 py-10">
+  <div class="hero-fullscreen rounded-2xl">
+    <%# 背景画像 %>
+    <div class="hero-bg-image rounded-2xl"></div>
+    <%# オーバーレイ（ライト/ダークモードで切り替え） %>
+    <div class="hero-overlay rounded-2xl"></div>
 
-  <div class="relative z-10 max-w-3xl text-center px-6">
-    <p class="text-lg mb-2">Welcome</p>
+    <div class="hero-content">
+      <p class="text-lg mb-2 opacity-90">Welcome</p>
 
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-      ペーちゃん’s Portfolio
-    </h1>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
+        ペーちゃん's Portfolio
+      </h1>
 
-    <p class="mb-8">
-      個人開発を通して、人の「負」を軽くするプロダクトを作っています
-    </p>
+      <p class="text-lg opacity-90">
+        個人開発を通して、人の「負」を軽くするプロダクトを作っています
+      </p>
+    </div>
 
-  </div>
-
-  <div class="absolute bottom-6 w-full text-center text-sm opacity-80">
-    ↓ Scroll
+    <div class="hero-scroll-hint">
+      <span class="animate-bounce inline-block">↓</span>
+      <span class="ml-1">Scroll</span>
+    </div>
   </div>
 </section>

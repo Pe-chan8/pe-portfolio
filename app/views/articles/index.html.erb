@@ -1,68 +1,70 @@
-<section class="card p-8">
-  <div class="flex items-end justify-between mb-6">
-    <h1 class="text-3xl font-extrabold">Articles</h1>
+<section class="mx-auto w-full max-w-5xl px-6 py-10">
+  <div class="card p-8">
+    <div class="flex items-end justify-between mb-6">
+      <h1 class="text-3xl font-extrabold">記事</h1>
 
-    <div class="flex gap-2">
-      <%= link_to "カード", articles_path(view: "grid", sort: @sort, q: @search_params), class: "pill #{@view == 'grid' ? 'bg-sky-500 text-white' : ''}" %>
-      <%= link_to "リスト", articles_path(view: "list", sort: @sort, q: @search_params), class: "pill #{@view == 'list' ? 'bg-sky-500 text-white' : ''}" %>
-    </div>
-  </div>
-
-  <div class="mb-6 flex flex-wrap gap-2">
-    <%= link_to "書いた日（新）", articles_path(sort: "published_on_desc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "書いた日（古）", articles_path(sort: "published_on_asc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "タイトル（昇順）", articles_path(sort: "title_asc", view: @view, q: @search_params), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
-    <%= link_to "タイトル（降順）", articles_path(sort: "title_desc", view: @view, q: @search_params), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
-  </div>
-
-  <%= search_form_for @q, url: articles_path, method: :get do |f| %>
-    <%= hidden_field_tag :view, @view %>
-    <%= hidden_field_tag :sort, @sort %>
-    <div class="flex gap-3 mb-6">
-        <%= f.search_field :title_or_summary_or_body_cont,
-            placeholder: "記事検索",
-            class: "input" %>
-        <%= f.submit "検索", class: "btn" %>
+      <div class="flex gap-2">
+        <%= link_to "カード", articles_path(view: "grid", sort: @sort, q: @search_params), class: "pill #{@view == 'grid' ? 'bg-sky-500 text-white' : ''}" %>
+        <%= link_to "リスト", articles_path(view: "list", sort: @sort, q: @search_params), class: "pill #{@view == 'list' ? 'bg-sky-500 text-white' : ''}" %>
+      </div>
     </div>
 
-    <!-- タグ検索（記事用だけ表示） -->
-    <div class="flex flex-wrap gap-2 mb-6">
-        <% Tag.for_articles.each do |tag| %>
-        <label class="pill flex items-center gap-1">
-            <%= f.check_box :tags_id_in, { multiple: true }, tag.id, nil %>
-            <%= tag.name %>
-        </label>
+    <div class="mb-6 flex flex-wrap gap-2">
+      <%= link_to "書いた日（新）", articles_path(sort: "published_on_desc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "書いた日（古）", articles_path(sort: "published_on_asc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "タイトル（昇順）", articles_path(sort: "title_asc", view: @view, q: @search_params), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
+      <%= link_to "タイトル（降順）", articles_path(sort: "title_desc", view: @view, q: @search_params), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
+    </div>
+
+    <%= search_form_for @q, url: articles_path, method: :get do |f| %>
+      <%= hidden_field_tag :view, @view %>
+      <%= hidden_field_tag :sort, @sort %>
+      <div class="flex gap-3 mb-6">
+          <%= f.search_field :title_or_summary_or_body_cont,
+              placeholder: "記事検索",
+              class: "input" %>
+          <%= f.submit "検索", class: "btn" %>
+      </div>
+
+      <!-- タグ検索（記事用だけ表示） -->
+      <div class="flex flex-wrap gap-2 mb-6">
+          <% Tag.for_articles.each do |tag| %>
+          <label class="pill flex items-center gap-1">
+              <%= f.check_box :tags_id_in, { multiple: true }, tag.id, nil %>
+              <%= tag.name %>
+          </label>
+          <% end %>
+      </div>
+    <% end %>
+
+    <% if @view == "list" %>
+      <div class="space-y-3">
+        <% @articles.each do |article| %>
+          <div class="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
+            <div class="w-28 text-sm font-bold">
+              <%= article.published_on || "日付未設定" %>
+            </div>
+            <div class="flex-1 font-bold">
+              <%= article.title %>
+            </div>
+            <%= link_to "詳細", article_path(article), class: "btn" %>
+          </div>
         <% end %>
-    </div>
-  <% end %>
-
-  <% if @view == "list" %>
-    <div class="space-y-3">
-      <% @articles.each do |article| %>
-        <div class="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
-          <div class="w-28 text-sm font-bold">
-            <%= article.published_on || "日付未設定" %>
+      </div>
+    <% else %>
+      <div class="grid gap-6 sm:grid-cols-3">
+        <% @articles.each do |article| %>
+          <div class="flex flex-col rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
+            <p class="text-sm font-bold text-center">
+              <%= article.published_on || "日付未設定" %>
+            </p>
+            <h2 class="mt-2 text-center font-bold min-h-[48px] flex items-center justify-center"><%= article.title %></h2>
+            <div class="mt-auto pt-4">
+              <%= link_to "詳細を見る", article_path(article), class: "btn w-full" %>
+            </div>
           </div>
-          <div class="flex-1 font-bold">
-            <%= article.title %>
-          </div>
-          <%= link_to "詳細", article_path(article), class: "btn" %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="grid gap-6 sm:grid-cols-3">
-      <% @articles.each do |article| %>
-        <div class="rounded-2xl bg-slate-100 p-4 dark:bg-slate-900">
-          <p class="text-sm font-bold text-center">
-            <%= article.published_on || "日付未設定" %>
-          </p>
-          <h2 class="mt-2 text-center font-bold"><%= article.title %></h2>
-          <div class="mt-4">
-            <%= link_to "詳細を見る", article_path(article), class: "btn w-full" %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </section>
