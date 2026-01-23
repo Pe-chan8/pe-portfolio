@@ -15,35 +15,40 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Tailwind build output (app/assets/builds/application.css) %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-
-    <%# JS build output (app/assets/builds/application.js) %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="min-h-dvh text-slate-900 dark:text-slate-100" data-controller="theme">
     <div class="min-h-dvh flex flex-col">
       <%# ===== Fixed Header ===== %>
-      <%# ヘッダー: わかりやすいボタン名 %>
       <header class="fixed top-0 left-0 right-0 z-50 w-full bg-sky-100 dark:bg-slate-800 border-b border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex items-center justify-center">
-            <nav class="flex flex-wrap justify-center gap-2">
-              <%= link_to root_path, class: "nav-pill-fixed", title: "トップページ" do %>
-                <span>🏠 TOP</span>
+            <nav class="flex flex-wrap justify-center gap-3">
+              <%= link_to root_path, class: "nav-btn-vertical", title: "トップページ" do %>
+                <%= image_tag "top.png", alt: "TOP", class: "nav-btn-icon" %>
+                <span class="nav-btn-label">TOP</span>
               <% end %>
-              <%= link_to about_path, class: "nav-pill-fixed", title: "自己紹介・経歴" do %>
-                <span>👤 自己紹介</span>
+
+              <%= link_to about_path, class: "nav-btn-vertical", title: "自己紹介・経歴" do %>
+                <%= image_tag "about_me.png", alt: "自己紹介", class: "nav-btn-icon" %>
+                <span class="nav-btn-label">自己紹介</span>
               <% end %>
-              <%= link_to apps_path, class: "nav-pill-fixed", title: "作ったアプリ紹介" do %>
-                <span>📱 アプリ</span>
+
+              <%= link_to apps_path, class: "nav-btn-vertical", title: "作ったアプリ紹介" do %>
+                <%= image_tag "app.png", alt: "アプリ", class: "nav-btn-icon" %>
+                <span class="nav-btn-label">アプリ</span>
               <% end %>
-              <%= link_to articles_path, class: "nav-pill-fixed", title: "書いた記事" do %>
-                <span>📝 記事</span>
+
+              <%= link_to articles_path, class: "nav-btn-vertical", title: "書いた記事" do %>
+                <%= image_tag "article.png", alt: "記事", class: "nav-btn-icon" %>
+                <span class="nav-btn-label">記事</span>
               <% end %>
-              <%= link_to books_path, class: "nav-pill-fixed", title: "読んだ本・Udemy学習記録" do %>
-                <span>📚 学習記録</span>
+
+              <%= link_to books_path, class: "nav-btn-vertical", title: "読んだ本・Udemy学習記録" do %>
+                <%= image_tag "learning_log.png", alt: "学習記録", class: "nav-btn-icon" %>
+                <span class="nav-btn-label">学習記録</span>
               <% end %>
             </nav>
           </div>
@@ -51,39 +56,36 @@
       </header>
 
       <%# ===== Main（ヘッダー・フッターとの余白を確保） ===== %>
-      <main class="flex-1 pt-24 pb-28">
+      <%# ラベル付きでヘッダーが少し高くなるので pt を増やす %>
+      <main class="flex-1 pt-32 pb-32">
         <%= yield %>
       </main>
 
       <%# ===== Fixed Footer ===== %>
-      <%# フッター: GitHub/X/問い合わせ/テーマ切替（サイズ統一） %>
       <footer class="fixed bottom-0 left-0 right-0 z-40 w-full bg-sky-100 dark:bg-slate-800 border-t border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex flex-wrap items-center justify-between gap-4 text-sm">
             <span class="text-slate-600 dark:text-slate-400">&copy; <%= Date.current.year %> Pe-chan</span>
+
             <div class="flex flex-wrap items-center gap-3">
-              <%# GitHub %>
-              <a class="footer-btn" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                <span>GitHub</span>
+              <a class="footer-btn-vertical" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
+                <%= image_tag "github.png", alt: "GitHub", class: "footer-btn-icon" %>
+                <span class="footer-btn-label">GitHub</span>
               </a>
-              <%# X (Twitter) %>
-              <a class="footer-btn" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                <span>X</span>
+
+              <a class="footer-btn-vertical" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
+                <%= image_tag "X.png", alt: "X", class: "footer-btn-icon" %>
+                <span class="footer-btn-label">X</span>
               </a>
-              <%# 問い合わせ (Googleフォーム) %>
-              <a class="footer-btn" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム（Googleフォーム）">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                <span>問い合わせ</span>
+
+              <a class="footer-btn-vertical" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム（Googleフォーム）">
+                <%= image_tag "inquiry.png", alt: "問い合わせ", class: "footer-btn-icon" %>
+                <span class="footer-btn-label">問い合わせ</span>
               </a>
-              <%# テーマ切替ボタン（アイコン上・文言下） %>
-              <button class="footer-btn theme-btn-vertical" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
-                <span class="theme-icon">
-                  <span class="theme-icon-light">☀️</span>
-                  <span class="theme-icon-dark">🌙</span>
-                </span>
-                <span class="theme-label" data-theme-target="label">テーマ</span>
+
+              <button class="footer-btn-vertical" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
+                <%= image_tag "mode.png", alt: "テーマ切替", class: "footer-btn-icon" %>
+                <span class="footer-btn-label">テーマ</span>
               </button>
             </div>
           </div>
