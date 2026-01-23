@@ -171,8 +171,8 @@
     @apply absolute inset-0 transition-all duration-500;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.35),
-      rgba(0, 0, 0, 0.45)
+      rgba(56, 189, 248, 0.15),
+      rgba(251, 191, 36, 0.10)
     );
     z-index: 1;
   }
@@ -187,10 +187,6 @@
 
   .hero-content {
     @apply relative z-10 max-w-3xl text-center px-6 py-8;
-
-    text-shadow: 
-      0 2px 6px rgba(0,0,0,0.35),
-      0 6px 16px rgba(0,0,0,0.25);
   }
 
   .hero-scroll-hint {
@@ -201,12 +197,11 @@
   /* ===== TOPページ全画面ヒーロー ===== */
   .hero-fullscreen {
     @apply relative flex flex-col items-center justify-center text-white;
-    min-height: calc(100vh - 208px);
+    /* ヘッダー・フッターの高さ分を引いて全画面表示 */
+    min-height: 100vh;
     width: 100%;
-
-    /* 👇 これを明示的に指定 */
+    overflow: hidden;
     border-radius: 0;
-    overflow: visible;
   }
 
   /* 背景画像をimgで配置（上下まで完全に表示） */
@@ -229,7 +224,7 @@
   .hero-bg-image {
     @apply absolute top-0 left-0 w-full h-full;
     background-image: url('/hero.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;

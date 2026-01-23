@@ -1,4 +1,6 @@
 <%# TOPページ: 背景画像を上から下まで全画面表示 %>
+<% content_for :fullscreen, true %>
+
 <section class="hero-fullscreen">
   <%# 背景画像（ライト/ダークで切替） %>
   <%= image_tag "hero.png", alt: "", class: "hero-img hero-img-light" %>

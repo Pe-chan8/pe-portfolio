@@ -55,9 +55,9 @@
         </div>
       </header>
 
-      <%# ===== Main（ヘッダー・フッターとの余白を確保） ===== %>
-      <%# ラベル付きでヘッダーが少し高くなるので pt を増やす %>
-      <main class="flex-1 pt-32 pb-32">
+      <%# ===== Main ===== %>
+      <%# TOPページ以外はヘッダー・フッターとの余白を確保 %>
+      <main class="flex-1 <%= content_for?(:fullscreen) ? '' : 'pt-32 pb-32' %>">
         <%= yield %>
       </main>
 
