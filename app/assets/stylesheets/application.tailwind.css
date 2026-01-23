@@ -38,7 +38,7 @@
   }
 
   .nav-btn-vertical img {
-    /* 少し大きく（7 → 8） */
+    /* 少し大きく */
     @apply h-8 w-auto;
   }
 
@@ -63,7 +63,7 @@
   }
 
   .footer-btn-vertical img {
-    /* 少し大きく（5 → 6） */
+    /* 少し大きく */
     @apply h-6 w-auto;
   }
 
@@ -73,7 +73,7 @@
     @apply text-xs font-semibold;
     @apply text-slate-700;
     @apply leading-none;
-    @apply whitespace-nowrap; /* 折り返し防止（問い合わせが割れない） */
+    @apply whitespace-nowrap;
     @apply dark:text-slate-200;
   }
 
@@ -152,7 +152,12 @@
     @apply opacity-100;
   }
 
-  /* ヒーローセクション（TOPページ） */
+  /* ================================
+     ヒーロー（TOPページ）
+     「画像を上から下まで全部見せる」= contain
+     ================================ */
+
+  /* 旧hero-section（残ってても壊れないように） */
   .hero-section {
     @apply relative w-full flex items-center justify-center text-white;
     min-height: calc(100vh - 144px);
@@ -161,12 +166,13 @@
     width: 100vw;
   }
 
+  /* オーバーレイ */
   .hero-overlay {
     @apply absolute inset-0 transition-all duration-500;
     background: linear-gradient(
       to bottom,
-      rgba(56, 189, 248, 0.15),
-      rgba(251, 191, 36, 0.1)
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.45)
     );
     z-index: 1;
   }
@@ -174,29 +180,17 @@
   html.dark .hero-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(15, 23, 42, 0.6),
-      rgba(30, 27, 75, 0.7)
+      rgba(15, 23, 42, 0.60),
+      rgba(30, 27, 75, 0.70)
     );
-  }
-
-  html.dark .hero-section {
-    filter: brightness(0.7) saturate(0.9);
   }
 
   .hero-content {
     @apply relative z-10 max-w-3xl text-center px-6 py-8;
-  }
 
-  .hero-btn {
-    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
-    @apply bg-white/90 text-sky-700 hover:bg-white hover:scale-105;
-    @apply dark:bg-slate-800/90 dark:text-sky-300 dark:hover:bg-slate-700;
-  }
-
-  .hero-btn-outline {
-    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
-    @apply bg-transparent border-2 border-white/80 text-white hover:bg-white/20 hover:scale-105;
-    @apply dark:border-sky-400/60 dark:text-sky-300 dark:hover:bg-sky-400/20;
+    text-shadow: 
+      0 2px 6px rgba(0,0,0,0.35),
+      0 6px 16px rgba(0,0,0,0.25);
   }
 
   .hero-scroll-hint {
@@ -204,17 +198,38 @@
     z-index: 10;
   }
 
+  /* ===== TOPページ全画面ヒーロー ===== */
   .hero-fullscreen {
     @apply relative flex flex-col items-center justify-center text-white;
     min-height: calc(100vh - 208px);
     width: 100%;
-    overflow: hidden;
+
+    /* 👇 これを明示的に指定 */
+    border-radius: 0;
+    overflow: visible;
   }
 
+  /* 背景画像をimgで配置（上下まで完全に表示） */
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* ← 上から下まで全部見える */
+    object-position: center;
+    z-index: 0;
+  }
+
+  /* ライト/ダーク切替 */
+  .hero-img-dark { display: none; }
+  html.dark .hero-img-light { display: none; }
+  html.dark .hero-img-dark { display: block; }
+
+  /* 旧 hero-bg-image（残っても壊れないように / 使わないならOK） */
   .hero-bg-image {
     @apply absolute top-0 left-0 w-full h-full;
     background-image: url('/hero.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;

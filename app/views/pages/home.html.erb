@@ -1,26 +1,18 @@
 <%# TOPページ: 背景画像を上から下まで全画面表示 %>
-<section class="mx-auto w-full max-w-5xl px-6 py-10">
-  <div class="hero-fullscreen rounded-2xl">
-    <%# 背景画像 %>
-    <div class="hero-bg-image rounded-2xl"></div>
-    <%# オーバーレイ（ライト/ダークモードで切り替え） %>
-    <div class="hero-overlay rounded-2xl"></div>
+<section class="hero-fullscreen">
+  <%# 背景画像（ライト/ダークで切替） %>
+  <%= image_tag "hero.png", alt: "", class: "hero-img hero-img-light" %>
+  <%= image_tag "hero_dark.png", alt: "", class: "hero-img hero-img-dark" %>
 
-    <div class="hero-content">
-      <p class="text-lg mb-2 opacity-90">Welcome</p>
+  <%# うっすらオーバーレイ %>
+  <div class="hero-overlay"></div>
 
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
-        ペーちゃん's Portfolio
-      </h1>
-
-      <p class="text-lg opacity-90">
-        個人開発を通して、人の「負」を軽くするプロダクトを作っています
-      </p>
-    </div>
-
-    <div class="hero-scroll-hint">
-      <span class="animate-bounce inline-block">↓</span>
-      <span class="ml-1">Scroll</span>
-    </div>
+  <%# 中央テキスト %>
+  <div class="hero-content">
+    <p class="text-sm opacity-80">Welcome</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight">ペーちゃん's Portfolio</h1>
+    <p class="mt-4 text-sm font-semibold opacity-90">
+      個人開発を通して、人の「負」を軽くするITプロダクトを作っています
+    </p>
   </div>
 </section>

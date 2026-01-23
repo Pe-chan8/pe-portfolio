@@ -17,11 +17,13 @@ class ApplicationController < ActionController::Base
     return head :forbidden if user.blank? || pass.blank?
 
     authenticate_or_request_with_http_basic("Admin") do |u, p|
-      secure_compare(u, user) && secure_compare(p, pass)
+      u_ok = secure_compare(u, user)
+      p_ok = secure_compare(p, pass)
+      u_ok & p_ok
     end
   end
 
-  # secure_compareは長さが違うとfalseにしたいので先に length を見る
+  # secure_compare は長さが違うと例外になるため、先に length を確認
   def secure_compare(a, b)
     a = a.to_s
     b = b.to_s
