@@ -29,21 +29,26 @@
       <header class="fixed top-0 left-0 right-0 z-50 w-full bg-sky-100 dark:bg-slate-800 border-b border-sky-200 dark:border-slate-700">
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex items-center justify-center">
-            <nav class="flex flex-wrap justify-center gap-1">
-              <%= link_to root_path, class: "nav-btn", title: "トップページ" do %>
-                <%= image_tag "top.png", alt: "TOP", class: "h-5 object-contain" %>
+            <nav class="flex flex-wrap justify-center gap-3">
+              <%= link_to root_path, class: "nav-btn-vertical", title: "トップページ" do %>
+                <%= image_tag "top.png", alt: "TOP", class: "h-8 object-contain" %>
+                <span class="nav-btn-label">TOP</span>
               <% end %>
-              <%= link_to about_path, class: "nav-btn", title: "自己紹介・経歴" do %>
-                <%= image_tag "about_me.png", alt: "自己紹介", class: "h-5 object-contain" %>
+              <%= link_to about_path, class: "nav-btn-vertical", title: "自己紹介・経歴" do %>
+                <%= image_tag "about_me.png", alt: "自己紹介", class: "h-8 object-contain" %>
+                <span class="nav-btn-label">自己紹介</span>
               <% end %>
-              <%= link_to apps_path, class: "nav-btn", title: "作ったアプリ紹介" do %>
-                <%= image_tag "app_log.png", alt: "アプリ", class: "h-5 object-contain" %>
+              <%= link_to apps_path, class: "nav-btn-vertical", title: "作ったアプリ紹介" do %>
+                <%= image_tag "app_log.png", alt: "アプリ", class: "h-8 object-contain" %>
+                <span class="nav-btn-label">アプリ</span>
               <% end %>
-              <%= link_to articles_path, class: "nav-btn", title: "書いた記事" do %>
-                <%= image_tag "article.png", alt: "記事", class: "h-5 object-contain" %>
+              <%= link_to articles_path, class: "nav-btn-vertical", title: "書いた記事" do %>
+                <%= image_tag "article.png", alt: "記事", class: "h-8 object-contain" %>
+                <span class="nav-btn-label">記事</span>
               <% end %>
-              <%= link_to books_path, class: "nav-btn", title: "読んだ本・Udemy学習記録" do %>
-                <%= image_tag "learning_log.png", alt: "学習記録", class: "h-5 object-contain" %>
+              <%= link_to books_path, class: "nav-btn-vertical", title: "読んだ本・Udemy学習記録" do %>
+                <%= image_tag "learning_log.png", alt: "学習記録", class: "h-8 object-contain" %>
+                <span class="nav-btn-label">学習記録</span>
               <% end %>
             </nav>
           </div>
@@ -61,22 +66,22 @@
         <div class="mx-auto w-full max-w-6xl px-4 py-3">
           <div class="flex flex-wrap items-center justify-between gap-4 text-sm">
             <span class="text-slate-600 dark:text-slate-400">&copy; <%= Date.current.year %> Pe-chan</span>
-            <div class="flex flex-wrap items-center gap-1">
-              <%# GitHub %>
-              <a class="footer-btn" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
-                <%= image_tag "github.png", alt: "GitHub", class: "h-4 object-contain" %>
+            <div class="flex flex-wrap items-center gap-2">
+              <a class="footer-btn-vertical" href="https://github.com/Pe-chan8" target="_blank" rel="noreferrer" title="GitHubプロフィール">
+                <%= image_tag "github.png", alt: "GitHub", class: "h-6 object-contain" %>
+                <span class="footer-btn-label">GitHub</span>
               </a>
-              <%# X (Twitter) %>
-              <a class="footer-btn" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
-                <%= image_tag "X.png", alt: "X", class: "h-4 object-contain" %>
+              <a class="footer-btn-vertical" href="https://x.com/hr892837" target="_blank" rel="noreferrer" title="X (Twitter)">
+                <%= image_tag "X.png", alt: "X", class: "h-6 object-contain" %>
+                <span class="footer-btn-label">X</span>
               </a>
-              <%# 問い合わせ (Googleフォーム) %>
-              <a class="footer-btn" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム（Googleフォーム）">
-                <%= image_tag "inquiry.png", alt: "問い合わせ", class: "h-4 object-contain" %>
+              <a class="footer-btn-vertical" href="<%= ENV.fetch('CONTACT_FORM_URL', 'https://forms.gle/your-form-id') %>" target="_blank" rel="noreferrer" title="お問い合わせフォーム（Googleフォーム）">
+                <%= image_tag "inquiry.png", alt: "問い合わせ", class: "h-6 object-contain" %>
+                <span class="footer-btn-label">問い合わせ</span>
               </a>
-              <%# テーマ切替ボタン %>
-              <button class="footer-btn" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
-                <%= image_tag "mode.png", alt: "テーマ切替", class: "h-4 object-contain" %>
+              <button class="footer-btn-vertical" data-action="click->theme#toggle" data-theme-target="button" title="ライト/ダークモード切替">
+                <%= image_tag "mode.png", alt: "テーマ切替", class: "h-6 object-contain" %>
+                <span class="footer-btn-label">テーマ</span>
               </button>
             </div>
           </div>

@@ -22,9 +22,21 @@
 @layer components {
   /* ナビゲーションボタン（画像ボタン用） */
   .nav-btn {
-    @apply inline-flex items-center justify-center px-2 py-1 rounded-lg transition-all duration-200;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-xl transition-all duration-200;
     @apply hover:bg-sky-200/50 hover:scale-105;
     @apply dark:hover:bg-slate-700/50;
+  }
+
+  /* ナビゲーションボタン（縦並び：画像上・ラベル下） */
+  .nav-btn-vertical {
+    @apply inline-flex flex-col items-center justify-center px-2 py-1 rounded-lg transition-all duration-200;
+    @apply hover:bg-sky-200/50 hover:scale-105;
+    @apply dark:hover:bg-slate-700/50;
+  }
+
+  .nav-btn-label {
+    @apply text-xs font-medium mt-0.5;
+    @apply text-slate-700 dark:text-slate-300;
   }
 
   /* ナビゲーションピル（固定幅でサイズを揃える） */
@@ -182,9 +194,21 @@
 
   /* ===== フッターボタン統一スタイル ===== */
   .footer-btn {
-    @apply inline-flex items-center gap-1 px-2 py-1.5 rounded-lg font-medium text-xs transition-all duration-200;
+    @apply inline-flex items-center justify-center px-3 py-2 rounded-xl transition-all duration-200;
     @apply text-slate-700 hover:bg-sky-200/50 hover:text-sky-800;
     @apply dark:text-slate-300 dark:hover:bg-slate-700/50 dark:hover:text-sky-300;
+  }
+
+  /* フッターボタン（縦並び：画像上・ラベル下） */
+  .footer-btn-vertical {
+    @apply inline-flex flex-col items-center justify-center px-2 py-1 rounded-lg transition-all duration-200;
+    @apply hover:bg-sky-200/50 hover:scale-105;
+    @apply dark:hover:bg-slate-700/50;
+  }
+
+  .footer-btn-label {
+    @apply text-xs font-medium mt-0.5;
+    @apply text-slate-600 dark:text-slate-400;
   }
 
   /* テーマ切替ボタン（縦並び：アイコン上・文言下） */
