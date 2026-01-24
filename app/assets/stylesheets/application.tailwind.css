@@ -217,7 +217,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;  /* 画面全体を覆う（一部切れる可能性あり） */
-    object-position: center;
+    object-position: center bottom;  /* 下端を優先して表示 */
     z-index: 0;
   }
 
@@ -226,18 +226,23 @@
   html.dark .hero-img-light { display: none; }
   html.dark .hero-img-dark { display: block; }
 
-  /* 旧 hero-bg-image（残っても壊れないように / 使わないならOK） */
   .hero-bg-image {
     @apply absolute top-0 left-0 w-full h-full;
     background-image: url('/hero.png');
-    background-size: cover;
+    background-size: contain;           /* ← 全体表示 */
     background-position: center;
     background-repeat: no-repeat;
+
+    /* 余り部分が出ても白くしない（写真の空/海に馴染む色） */
+    background-color: #0b4d73;
+
     z-index: 0;
   }
 
   html.dark .hero-bg-image {
-    filter: brightness(0.6) saturate(0.8);
+    background-image: url('/hero_dark.png');
+    background-color: #021922;          /* 夜に馴染む色 */
+    filter: none;                       /* 変に暗くしないなら none */
   }
 
   /* 旧フッターボタン（横並び版が残ってても壊れないように一応残す） */
