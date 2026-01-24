@@ -1,26 +1,21 @@
-<%# TOPページ: 背景画像を上から下まで全画面表示 %>
-<section class="mx-auto w-full max-w-5xl px-6 py-10">
-  <div class="hero-fullscreen rounded-2xl">
-    <%# 背景画像 %>
-    <div class="hero-bg-image rounded-2xl"></div>
-    <%# オーバーレイ（ライト/ダークモードで切り替え） %>
-    <div class="hero-overlay rounded-2xl"></div>
+<%# TOPページ: 背景画像を全画面表示 %>
+<% content_for :fullscreen, true %>
 
-    <div class="hero-content">
-      <p class="text-lg mb-2 opacity-90">Welcome</p>
+<section class="hero-fullscreen">
+  <%# 背景画像 %>
+  <div class="hero-bg-image"></div>
+  <%# オーバーレイ（ライト/ダークモードで切り替え） %>
+  <div class="hero-overlay"></div>
 
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
-        ペーちゃん's Portfolio
-      </h1>
+  <div class="hero-content">
+    <p class="hero-welcome text-lg mb-2">Welcome</p>
 
-      <p class="text-lg opacity-90">
-        個人開発を通して、人の「負」を軽くするプロダクトを作っています
-      </p>
-    </div>
+    <h1 class="hero-title text-4xl md:text-5xl font-extrabold mb-4">
+      ペーちゃん's Portfolio
+    </h1>
 
-    <div class="hero-scroll-hint">
-      <span class="animate-bounce inline-block">↓</span>
-      <span class="ml-1">Scroll</span>
-    </div>
+    <p class="hero-subtitle text-lg">
+      個人開発を通して、人の「負」を軽くするプロダクトを作っています
+    </p>
   </div>
 </section>

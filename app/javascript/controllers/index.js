@@ -9,3 +9,6 @@ application.register("dark-mode", DarkModeController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)
