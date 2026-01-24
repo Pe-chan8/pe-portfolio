@@ -12,10 +12,10 @@
     min-height: 100vh;
   }
 
-  /* ダークモード: 星空、静かに輝く海、花畑、ペンギン */
+  /* ダークモード: 静かな星空、深く落ち着いた海 */
   html.dark body {
-    @apply bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-900 text-slate-50;
-    background-attachment: fixed;
+    background-color: #020617; /* slate-950 */
+    color: #e5e7eb;           /* slate-200 */
   }
 }
 
@@ -38,17 +38,15 @@
   }
 
   .nav-btn-vertical img {
-    /* 少し大きく（7 → 8） */
     @apply h-8 w-auto;
   }
 
   .nav-btn-label {
-    /* 画像の幅に合わせてラベル幅を確保し、中央揃え */
     @apply w-24 text-center;
     @apply text-xs font-semibold;
     @apply text-slate-700;
     @apply leading-none;
-    @apply whitespace-nowrap; /* 折り返し防止 */
+    @apply whitespace-nowrap;
     @apply dark:text-slate-200;
   }
 
@@ -63,17 +61,15 @@
   }
 
   .footer-btn-vertical img {
-    /* 少し大きく（5 → 6） */
     @apply h-6 w-auto;
   }
 
   .footer-btn-label {
-    /* ボタン画像の横幅に合わせて中央固定 + 折り返し防止 */
     @apply w-24 text-center;
     @apply text-xs font-semibold;
     @apply text-slate-700;
     @apply leading-none;
-    @apply whitespace-nowrap; /* 折り返し防止（問い合わせが割れない） */
+    @apply whitespace-nowrap;
     @apply dark:text-slate-200;
   }
 
@@ -152,7 +148,9 @@
     @apply opacity-100;
   }
 
-  /* ヒーローセクション（TOPページ） */
+  /* ================================
+     ヒーローセクション（TOPページ）
+     ================================ */
   .hero-section {
     @apply relative w-full flex items-center justify-center text-white;
     min-height: calc(100vh - 144px);
@@ -161,6 +159,7 @@
     width: 100vw;
   }
 
+  /* オーバーレイ（ライトモード） */
   .hero-overlay {
     @apply absolute inset-0 transition-all duration-500;
     background: linear-gradient(
@@ -171,11 +170,12 @@
     z-index: 1;
   }
 
+  /* オーバーレイ（ダークモード: 星空 → 深海） */
   html.dark .hero-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(15, 23, 42, 0.6),
-      rgba(30, 27, 75, 0.7)
+      rgba(2, 6, 23, 0.45),   /* 星空 */
+      rgba(2, 25, 34, 0.75)   /* 深海 */
     );
   }
 
@@ -187,10 +187,56 @@
     @apply relative z-10 max-w-3xl text-center px-6 py-8;
   }
 
+  /* ヒーロー文字スタイル（ライトモード） */
+  .hero-welcome {
+    @apply opacity-90;
+  }
+
+  .hero-title {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-subtitle {
+    @apply opacity-90;
+  }
+
+  /* ヒーロー文字スタイル（ダークモード: 見やすさ強化） */
+  html.dark .hero-welcome {
+    color: #7dd3fc; /* sky-300 */
+    letter-spacing: 0.05em;
+    opacity: 1;
+  }
+
+  html.dark .hero-title {
+    color: #f8fafc; /* almost white */
+    text-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.6),
+      0 0 24px rgba(56, 189, 248, 0.25); /* ほんのり光 */
+  }
+
+  html.dark .hero-subtitle {
+    color: #e2e8f0; /* slate-200 */
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+
+  /* ヒーローボタン（ライトモード） */
   .hero-btn {
     @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
     @apply bg-white/90 text-sky-700 hover:bg-white hover:scale-105;
-    @apply dark:bg-slate-800/90 dark:text-sky-300 dark:hover:bg-slate-700;
+  }
+
+  /* ヒーローボタン（ダークモード: 深海でも浮く） */
+  html.dark .hero-btn {
+    background-color: rgba(15, 23, 42, 0.85); /* slate-900 */
+    color: #7dd3fc; /* sky-300 */
+    border: 1px solid rgba(56, 189, 248, 0.4);
+  }
+
+  html.dark .hero-btn:hover {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #e0f2fe;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
   }
 
   .hero-btn-outline {
@@ -204,6 +250,7 @@
     z-index: 10;
   }
 
+  /* 全画面ヒーロー */
   .hero-fullscreen {
     @apply relative flex flex-col items-center justify-center text-white;
     position: fixed;
@@ -217,6 +264,7 @@
     z-index: 0;
   }
 
+  /* 背景画像（ライトモード） */
   .hero-bg-image {
     position: absolute;
     inset: 0;
@@ -229,11 +277,27 @@
     z-index: 0;
   }
 
+  /* 背景画像（ダークモード） */
   html.dark .hero-bg-image {
     background-image: url('/hero_dark.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.65) saturate(0.85);
   }
 
-  /* 旧フッターボタン（横並び版が残ってても壊れないように一応残す） */
+  /* ================================
+     ナビ・フッター（ダークモード統一感）
+     ================================ */
+  html.dark header {
+    background-color: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(6px);
+  }
+
+  html.dark footer {
+    background-color: #020617;
+  }
+
+  /* 旧フッターボタン（互換性のため残す） */
   .footer-btn {
     @apply inline-flex items-center justify-center px-3 py-2 rounded-xl transition-all duration-200;
     @apply text-slate-700 hover:bg-sky-200/50 hover:text-sky-800;
