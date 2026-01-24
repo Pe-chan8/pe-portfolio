@@ -1,146 +1,167 @@
 @import "tailwindcss";
 
 /* =========================================================
+   ページ全体（色の統一：緑を使わない）
+   ========================================================= */
+:root {
+  /* Light */
+  --page-bg: linear-gradient(to bottom, #bae6fd 0%, #e0f2fe 55%, #fffbeb 100%);
+  --page-text: #0f172a;
+
+  /* Accent（緑は使わず “水色/青” に統一） */
+  --primary: #0ea5e9;        /* sky-500 */
+  --primary-hover: #0284c7;  /* sky-600 */
+  --primary-text: #ffffff;
+
+  /* Sub accent（黄色はポイントだけ） */
+  --accent-yellow: #fbbf24;  /* amber-400 */
+
+  /* Surfaces (Light) */
+  --surface-bg: rgba(255, 255, 255, 0.82);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --border: rgba(148, 163, 184, 0.35);
+  --muted: #64748b;
+
+  /* Hero */
+  --hero-image: url('/hero.png');
+  --hero-overlay: linear-gradient(to bottom, rgba(2, 132, 199, 0.18), rgba(251, 191, 36, 0.10));
+  --hero-filter: brightness(0.92) contrast(1.06) saturate(1.06);
+}
+
+html.dark {
+  /* Dark page background（夜の海/星空イメージ） */
+  --page-bg: linear-gradient(to bottom, #0b1220 0%, #071022 45%, #020617 100%);
+  --page-text: #f8fafc; /* slate-50: より明るい白 */
+
+  /* Accent（ダークでも眩しくない水色） */
+  --primary: #38bdf8;        /* sky-400 */
+  --primary-hover: #0ea5e9;  /* sky-500 */
+  --primary-text: #06121a;
+
+  /* Surfaces (Dark) */
+  --surface-bg: rgba(17, 24, 39, 0.70);  /* slate-900 */
+  --card-bg: rgba(30, 41, 59, 0.78);     /* slate-800 */
+  --border: rgba(148, 163, 184, 0.22);
+  --muted: #94a3b8;
+
+  /* Hero（暗すぎを少し持ち上げ） */
+  --hero-image: url('/hero_dark.png');
+  --hero-overlay: linear-gradient(to bottom, rgba(2, 6, 23, 0.18), rgba(2, 6, 23, 0.52));
+  --hero-filter: brightness(1.12) contrast(1.08) saturate(1.06);
+}
+
+/* =========================================================
    Base
    ========================================================= */
 @layer base {
-  /* ライトモード: 晴れた空、ひだまり、ひまわり、花畑、水族館、ペンギン */
+  html, body { height: 100%; }
+
   body {
-    @apply bg-gradient-to-b from-sky-200 via-sky-100 to-amber-50;
+    background: var(--page-bg);
+    color: var(--page-text);
     background-attachment: fixed;
     min-height: 100vh;
   }
 
-  /* ダークモード: 静かな星空、深く落ち着いた海 */
-  html.dark body {
-    background-color: #020617; /* slate-950 */
-    color: #e5e7eb;            /* slate-200 */
+  #root, main {
+    min-height: 100vh;
+    background: transparent;
   }
+
+  a { color: inherit; }
+  html.dark a { color: #93c5fd; }
+  html.dark a:hover { color: #e0f2fe; }
+
+  h1, h2, h3, h4, h5, h6 { @apply text-slate-900; }
+  html.dark h1,
+  html.dark h2,
+  html.dark h3,
+  html.dark h4,
+  html.dark h5,
+  html.dark h6 { color: #e5e7eb; }
 }
 
 /* =========================================================
    Components
    ========================================================= */
 @layer components {
-  /* ナビゲーションボタン（画像ボタン用 / 従来） */
-  .nav-btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-xl transition-all duration-200;
-    @apply hover:bg-sky-200/50 hover:scale-105;
-    @apply dark:hover:bg-slate-700/50;
-  }
-
   /* ================================
-     縦並びナビボタン（ヘッダー）
+     Buttons（緑の代わりに全部これで統一）
      ================================ */
-  .nav-btn-vertical {
-    @apply inline-flex flex-col items-center justify-center gap-1 text-center transition-all duration-200;
-  }
-
-  .nav-btn-vertical img {
-    @apply h-8 w-auto;
-  }
-
-  .nav-btn-label {
-    @apply w-24 text-center text-xs font-semibold leading-none whitespace-nowrap;
-    @apply text-slate-700 dark:text-slate-200;
-  }
-
-  /* ================================
-     縦並びナビボタン（フッター）
-     ================================ */
-  .footer-btn-vertical {
-    @apply inline-flex flex-col items-center justify-center gap-1 text-center transition-all duration-200;
-  }
-
-  .footer-btn-vertical img {
-    @apply h-6 w-auto;
-  }
-
-  .footer-btn-label {
-    @apply w-24 text-center text-xs font-semibold leading-none whitespace-nowrap;
-    @apply text-slate-700 dark:text-slate-200;
-  }
-
-  /* ナビゲーションピル（固定幅でサイズを揃える） */
-  .nav-pill-fixed {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full font-bold transition-all duration-200;
-    @apply text-xs px-3 py-1.5;
-    @apply bg-white/90 text-sky-700 hover:bg-sky-200 hover:text-sky-900 shadow-sm;
-    @apply dark:bg-slate-700/90 dark:text-sky-300 dark:hover:bg-slate-600 dark:hover:text-sky-200;
-  }
-
-  /* ナビゲーションピル（可変幅） */
-  .nav-pill {
-    @apply rounded-full px-4 py-2 text-sm font-bold transition-all duration-200;
-    @apply bg-white/80 text-sky-700 hover:bg-sky-200 hover:text-sky-900;
-    @apply dark:bg-slate-700/80 dark:text-sky-300 dark:hover:bg-slate-600 dark:hover:text-sky-200;
-  }
-
-  /* 既存のpill (互換性のため残す) */
-  .pill {
-    @apply rounded-full px-4 py-2 text-sm font-bold transition;
-    @apply bg-slate-100 hover:bg-slate-200;
-    @apply dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600;
-  }
-
   .btn {
     @apply rounded-full px-5 py-2 font-bold transition;
-    @apply bg-sky-400 text-white hover:bg-sky-500;
-    @apply dark:bg-sky-600 dark:hover:bg-sky-500;
+    background-color: var(--primary);
+    color: var(--primary-text);
+  }
+  .btn:hover { background-color: var(--primary-hover); }
+
+  /* “検索”など小さめの丸ボタンも同系色に */
+  .btn-sm {
+    @apply rounded-full px-4 py-2 font-bold transition;
+    background-color: var(--primary);
+    color: var(--primary-text);
+  }
+  .btn-sm:hover { background-color: var(--primary-hover); }
+
+  /* 薄いボタン（フィルタ/並び替え用） */
+  .btn-soft {
+    @apply rounded-full px-4 py-2 font-bold transition;
+    background: rgba(14, 165, 233, 0.12);
+    color: #0369a1; /* sky-700 */
+    border: 1px solid rgba(14, 165, 233, 0.25);
+  }
+  .btn-soft:hover {
+    background: rgba(14, 165, 233, 0.18);
+    border-color: rgba(14, 165, 233, 0.35);
+  }
+  html.dark .btn-soft {
+    background: rgba(56, 189, 248, 0.12);
+    color: #e5e7eb;
+    border-color: rgba(148, 163, 184, 0.22);
+  }
+  html.dark .btn-soft:hover {
+    background: rgba(56, 189, 248, 0.16);
+    border-color: rgba(148, 163, 184, 0.30);
   }
 
+  /* Inputs */
   .input {
     @apply w-full rounded-2xl border px-4 py-3 outline-none transition;
-    @apply border-slate-200 bg-white focus:ring-2 focus:ring-sky-200;
-    @apply dark:border-slate-600 dark:bg-slate-800 dark:focus:ring-sky-600;
+    border-color: rgba(148, 163, 184, 0.35);
+    background: rgba(255,255,255,0.92);
+    color: #0f172a;
   }
+  html.dark .input {
+    background: rgba(2, 6, 23, 0.35);
+    border-color: rgba(148, 163, 184, 0.25);
+    color: #e5e7eb;
+  }
+  html.dark .input::placeholder { color: var(--muted); }
+  .input:focus { --tw-ring-color: rgba(56, 189, 248, 0.35); }
+  html.dark .input:focus { --tw-ring-color: rgba(147, 197, 253, 0.35); }
 
+  /* Cards / Surfaces */
   .card {
     @apply rounded-2xl border shadow-sm;
-    @apply bg-white/95 border-slate-200;
-    @apply dark:bg-slate-800/95 dark:border-slate-700;
+    background: var(--card-bg);
+    border-color: var(--border);
   }
 
-  /* フッターリンク extractor */
-  .footer-link {
-    @apply flex items-center gap-1.5 transition-colors;
-    @apply text-slate-600 hover:text-sky-600;
-    @apply dark:text-slate-400 dark:hover:text-sky-400;
+  .surface {
+    @apply rounded-3xl border shadow-sm;
+    background: var(--surface-bg);
+    border-color: var(--border);
+    backdrop-filter: blur(10px);
   }
 
-  /* テーマ切替ボタン（旧: トグルUI） */
-  .theme-toggle-btn {
-    @apply relative w-14 h-8 rounded-full transition-all duration-300 cursor-pointer overflow-hidden;
-    @apply bg-gradient-to-r from-amber-300 to-sky-300 border-2 border-amber-400;
-    @apply dark:from-indigo-600 dark:to-slate-700 dark:border-indigo-500;
-  }
+  /* Header / Footer */
+  header { background: rgba(224, 242, 254, 0.75); backdrop-filter: blur(6px); }
+  html.dark header { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(8px); }
 
-  .theme-toggle-btn .theme-icon-light,
-  .theme-toggle-btn .theme-icon-dark {
-    @apply absolute top-1/2 -translate-y-1/2 text-lg transition-all duration-300;
-  }
+  footer { background: rgba(224, 242, 254, 0.75); }
+  html.dark footer { background: rgba(15, 23, 42, 0.70); }
 
-  .theme-toggle-btn .theme-icon-light {
-    @apply left-1.5 opacity-100;
-  }
-
-  .theme-toggle-btn .theme-icon-dark {
-    @apply right-1.5 opacity-30;
-  }
-
-  html.dark .theme-toggle-btn .theme-icon-light {
-    @apply opacity-30;
-  }
-
-  html.dark .theme-toggle-btn .theme-icon-dark {
-    @apply opacity-100;
-  }
-
-  /* ================================
-     ヒーローセクション（TOPページ）
-     - ライト/ダークで「見え方」を揃えるため
-       16:9の比率で固定（画像も 2560x1440 なので最適）
-     ================================ */
+  /* Hero */
   .hero-section {
     @apply relative w-full flex items-center justify-center text-white;
     margin-left: calc(-50vw + 50%);
@@ -148,163 +169,210 @@
     width: 100vw;
   }
 
-  /* 全画面ヒーロー（ヘッダー・フッターの下に潜り込む） */
   .hero-fullscreen {
     @apply relative text-white overflow-hidden;
-    @apply flex items-center justify-center;
-    @apply text-center;
+    @apply flex items-center justify-center text-center;
 
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     width: 100%;
     height: 100vh;
     z-index: 0;
   }
 
-  /* 背景画像（共通） */
-  .hero-bg-image {
+  .hero-bg-image { position: absolute; inset: 0; z-index: 0; background: transparent; }
+
+  .hero-bg-image::after {
+    content: "";
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/hero.png');
+    background-image: var(--hero-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 0;
+    filter: var(--hero-filter);
+    transform: scale(1.02);
   }
 
-  /* ダークモード */
-  html.dark .hero-bg-image {
-    background-image: url('/hero_dark.png');
-    filter: brightness(0.7) saturate(0.9);
-  }
-
-  /* オーバーレイ（ライトモード） */
   .hero-overlay {
     @apply absolute inset-0 transition-all duration-500;
-    background: linear-gradient(
-      to bottom,
-      rgba(56, 189, 248, 0.18),
-      rgba(251, 191, 36, 0.10)
-    );
-    z-index: 1;
-  }
-
-  /* オーバーレイ（ダークモード: 星空 → 深海） */
-  html.dark .hero-overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(2, 6, 23, 0.45),   /* 星空 */
-      rgba(2, 25, 34, 0.78)   /* 深海 */
-    );
+    background: var(--hero-overlay);
+    z-index: 2;
   }
 
   .hero-content {
     @apply relative z-10 max-w-3xl text-center px-6 py-10;
-  }
-
-  /* ヒーロー文字スタイル（ライトモード） */
-  .hero-welcome {
-    @apply opacity-90;
-  }
-
-  .hero-title {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-  }
-
-  .hero-subtitle {
-    @apply opacity-90;
-  }
-
-  /* ヒーロー文字スタイル（ダークモード: 見やすさ強化） */
-  html.dark .hero-welcome {
-    color: #7dd3fc; /* sky-300 */
-    letter-spacing: 0.05em;
-    opacity: 1;
-  }
-
-  html.dark .hero-title {
-    color: #f8fafc; /* almost white */
-    text-shadow:
-      0 2px 14px rgba(0, 0, 0, 0.65),
-      0 0 26px rgba(56, 189, 248, 0.25);
-  }
-
-  html.dark .hero-subtitle {
-    color: #e2e8f0; /* slate-200 */
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
-    opacity: 1;
-  }
-
-  /* ヒーローボタン（ライトモード） */
-  .hero-btn {
-    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
-    @apply bg-white/90 text-sky-700 hover:bg-white hover:scale-105;
-  }
-
-  /* ヒーローボタン（ダークモード: 深海でも浮く） */
-  html.dark .hero-btn {
-    background-color: rgba(15, 23, 42, 0.85); /* slate-900 */
-    color: #7dd3fc; /* sky-300 */
-    border: 1px solid rgba(56, 189, 248, 0.4);
-  }
-
-  html.dark .hero-btn:hover {
-    background-color: rgba(56, 189, 248, 0.15);
-    color: #e0f2fe;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
-  }
-
-  .hero-btn-outline {
-    @apply rounded-full px-6 py-3 font-bold transition-all duration-200;
-    @apply bg-transparent border-2 border-white/80 text-white hover:bg-white/20 hover:scale-105;
-    @apply dark:border-sky-400/60 dark:text-sky-300 dark:hover:bg-sky-400/20;
-  }
-
-  /* ↓Scroll を消したいなら display:none（HTMLを触らなくてOK） */
-  .hero-scroll-hint {
-    display: none !important;
-  }
-
-  /* ================================
-     ナビ・フッター（ダークモード統一感）
-     ================================ */
-  html.dark header {
-    background-color: rgba(2, 6, 23, 0.85);
+    padding: 28px 28px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.22);
     backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  html.dark .hero-content {
+    background: rgba(2, 6, 23, 0.22);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   }
 
-  html.dark footer {
-    background-color: #020617;
+  .hero-title { text-shadow: 0 2px 16px rgba(0,0,0,0.55); }
+}
+
+/* =========================================================
+   ★緑系クラスを “強制的に” 無効化して上書きしたい場合（保険）
+   ※ もしUI側で bg-green-500 等が残っているなら効きます
+   ========================================================= */
+@layer utilities {
+  html.dark .bg-green-500,
+  html.dark .bg-green-600,
+  html.dark .bg-emerald-500,
+  html.dark .bg-emerald-600 {
+    background-color: var(--primary) !important;
   }
 
-  /* 旧フッターボタン（互換性のため残す） */
-  .footer-btn {
-    @apply inline-flex items-center justify-center px-3 py-2 rounded-xl transition-all duration-200;
-    @apply text-slate-700 hover:bg-sky-200/50 hover:text-sky-800;
-    @apply dark:text-slate-300 dark:hover:bg-slate-700/50 dark:hover:text-sky-300;
+  html.dark .text-green-500,
+  html.dark .text-emerald-500 {
+    color: var(--primary) !important;
+  }
+}
+
+/* =========================================================
+   ナビ画像ボタン：サイズ＆ラベル位置を“元に戻す”上書き
+   （.btn等の影響を遮断）
+   ========================================================= */
+@layer components {
+  /* ヘッダーのナビ（画像＋文字） */
+  .nav-btn-vertical {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;                 /* 文字との間隔：元の位置に寄せる */
+    padding: 0 !important;    /* .btn の padding を無効化 */
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    line-height: 1;
   }
 
-  /* テーマ切替ボタン（縦並び：アイコン上・文言下） */
-  .theme-btn-vertical {
-    @apply flex-col items-center justify-center gap-0.5;
+  .nav-btn-vertical img {
+    height: 32px !important;  /* ←元がこのくらいなら32px（以前の h-8 相当） */
+    width: auto !important;
+    display: block;
   }
 
-  .theme-btn-vertical .theme-icon {
-    @apply text-lg leading-none;
+  .nav-btn-label {
+    width: 96px;              /* w-24 相当 */
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;           /* 文字の縦ズレ防止 */
+    margin: 0 !important;     /* 余計なマージン消す */
+    transform: translateY(0); /* 位置ずれリセット */
   }
 
-  .theme-btn-vertical .theme-label {
-    @apply text-xs;
+  /* フッターのナビ（画像＋文字） */
+  .footer-btn-vertical {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    line-height: 1;
   }
 
-  .theme-icon-light { @apply inline; }
-  .theme-icon-dark { @apply hidden; }
+  .footer-btn-vertical img {
+    height: 24px !important;
+    width: auto !important;
+    display: block;
+  }
 
-  html.dark .theme-icon-light { @apply hidden; }
-  html.dark .theme-icon-dark { @apply inline; }
+  .footer-btn-label {
+    width: 96px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0 !important;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   ダークモード：カード内の文字色調整
+   ========================================================= */
+@layer components {
+  /* カード全体の文字色 */
+  html.dark .card {
+    color: #e5e7eb; /* slate-200 */
+  }
+
+  /* カード内：タイトル（白文字） */
+  html.dark .card h1,
+  html.dark .card h2,
+  html.dark .card h3,
+  html.dark .card h4,
+  html.dark .article-title {
+    color: #f8fafc; /* slate-50: 白文字 */
+    font-weight: 700;
+  }
+
+  /* カード内：日付 */
+  html.dark .card .article-date,
+  html.dark .card time {
+    color: #cbd5e1; /* slate-300 */
+    font-weight: 600;
+  }
+
+  /* カード内：本文 or 説明文 */
+  html.dark .card p {
+    color: #e5e7eb; /* slate-200 */
+  }
+
+  /* placeholder だけは控えめ */
+  html.dark input::placeholder {
+    color: #94a3b8; /* slate-400 */
+  }
+
+  /* カード内の白背景部分は黒文字に（bg-whiteのみ対象） */
+  html.dark .card .bg-white {
+    color: #0f172a; /* slate-900 */
+  }
+  /* =========================================================
+   Fix: ダークモードでも“小カード(bg-slate-100系)”の文字は黒にする
+   （.card配下の見出し白指定に負けないように強めに上書き）
+   ========================================================= */
+  @layer components {
+    /* 小カード（記事/学習記録のグリッドで使ってるやつ想定） */
+    html.dark .bg-slate-100,
+    html.dark .bg-slate-50,
+    html.dark .bg-white {
+      color: #0f172a !important; /* slate-900 */
+    }
+
+    /* 小カード内の主要テキストをまとめて黒に */
+    html.dark .bg-slate-100 h1,
+    html.dark .bg-slate-100 h2,
+    html.dark .bg-slate-100 h3,
+    html.dark .bg-slate-100 p,
+    html.dark .bg-slate-50 h1,
+    html.dark .bg-slate-50 h2,
+    html.dark .bg-slate-50 h3,
+    html.dark .bg-slate-50 p,
+    html.dark .bg-white h1,
+    html.dark .bg-white h2,
+    html.dark .bg-white h3,
+    html.dark .bg-white p {
+      color: #0f172a !important; /* slate-900 */
+    }
+
+    /* 小カード内の薄い補助文字（著者名とか）だけ少し落とす */
+    html.dark .bg-slate-100 .text-slate-600,
+    html.dark .bg-slate-50 .text-slate-600,
+    html.dark .bg-white .text-slate-600 {
+      color: #334155 !important; /* slate-700 */
+    }
+  }
 }
