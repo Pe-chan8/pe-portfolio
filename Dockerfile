@@ -33,5 +33,5 @@ ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 3000
 
-# Rails server
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+# Rails server (RenderのPORTを使う)
+CMD bash -lc "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p ${PORT:-3000}"
