@@ -463,7 +463,7 @@ DEPENDENCIES
   jsbundling-rails
   kamal
   minitest (~> 5.20)
-  pg (~> 1.1)
+  pg
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.1)
