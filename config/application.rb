@@ -28,6 +28,6 @@ module PePortfolio
 
     # 日本語をデフォルトロケールに設定
     config.i18n.default_locale = :ja
-    config.i18n.available_locales = [:ja, :en]
+    config.i18n.available_locales = [ :ja, :en ]
   end
 end
