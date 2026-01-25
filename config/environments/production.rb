@@ -89,4 +89,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.assets.compile = false
   config.assets.digest = true
+  config.assets.css_compressor = nil
 end
