@@ -77,3 +77,6 @@ gem "ransack"
 gem "rails_admin", "~> 3.0"
 gem "sprockets-rails"
 gem "sassc-rails"
+
+# Cloudinary for image storage
+gem "cloudinary"
