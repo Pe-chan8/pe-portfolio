@@ -80,3 +80,4 @@ gem "sassc-rails"
 
 # Cloudinary for image storage
 gem "cloudinary"
+gem "activestorage-cloudinary-service"
