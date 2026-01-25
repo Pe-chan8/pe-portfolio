@@ -5,41 +5,50 @@ ja:
         title: "ダッシュボード"
         menu: "ダッシュボード"
         breadcrumb: "ダッシュボード"
+
       index:
-        title: "%{model_label_plural} 一覧"
+        title: "一覧"
         menu: "一覧"
-        breadcrumb: "%{model_label_plural}"
+        breadcrumb: "一覧"
+
       show:
-        title: "%{model_label} の詳細"
+        title: "詳細"
         menu: "詳細"
-        breadcrumb: "%{object_label}"
+        breadcrumb: "詳細"
+
       show_in_app:
         menu: "アプリで表示"
+
       new:
-        title: "%{model_label} を作成"
+        title: "新規作成"
         menu: "新規作成"
         breadcrumb: "新規作成"
-        done: "%{model_label} を作成しました"
+        done: "新規作成が完了しました"
+
       edit:
-        title: "%{model_label} を編集"
+        title: "編集"
         menu: "編集"
         breadcrumb: "編集"
-        done: "%{model_label} を更新しました"
+        done: "編集が完了しました"
+
       delete:
-        title: "%{model_label} を削除"
+        title: "削除"
         menu: "削除"
         breadcrumb: "削除"
-        done: "%{model_label} を削除しました"
+        done: "削除が完了しました"
+
       bulk_delete:
-        title: "%{model_label_plural} を一括削除"
+        title: "一括削除"
         menu: "選択を削除"
         breadcrumb: "一括削除"
-        bulk_link: "選択した %{model_label_plural} を削除"
+        bulk_link: "選択した項目を削除"
+
       export:
-        title: "%{model_label_plural} をエクスポート"
+        title: "エクスポート"
         menu: "エクスポート"
         breadcrumb: "エクスポート"
-        done: "%{model_label_plural} をエクスポートしました"
+        done: "エクスポートしました"
+
     form:
       cancel: "キャンセル"
       basic_info: "基本情報"
@@ -52,10 +61,11 @@ ja:
       save_and_add_another: "保存して新規作成"
       save_and_edit: "保存して編集を続ける"
       all_of_the_following_related_items_will_be_deleted: "関連する以下のアイテムも削除されます"
-      are_you_sure_you_want_to_delete_the_object: "本当にこの %{model_label} を削除しますか？"
+      are_you_sure_you_want_to_delete_the_object: "本当に削除しますか？"
       confirmation: "確認が必要です"
-      bulk_delete: "以下の %{model_label_plural} を削除しようとしています。本当によろしいですか？"
-      new_model: "%{model_label} を作成"
+      bulk_delete: "以下の項目を削除しようとしています。本当によろしいですか？"
+      new_model: "新規作成"
+
     export:
       csv:
         header_for_root_methods: "%{field}"
@@ -63,7 +73,7 @@ ja:
         skip_header: "ヘッダーをスキップ"
         default_col_sep: ","
       options: "オプション"
-      fields_from: "%{model_label} のフィールド"
+      fields_from: "フィールド"
       fields_from_associated: "関連 %{association_label} のフィールド"
       display: "表示: %{name}"
       empty_value_for_associated_objects: "<関連オブジェクトなし>"
@@ -76,6 +86,7 @@ ja:
       csv: "CSV"
       json: "JSON"
       xml: "XML"
+
     misc:
       search: "検索"
       filter: "フィルター"
@@ -101,18 +112,22 @@ ja:
       time_ago: "%{time} 前"
       previous: "前へ"
       next: "次へ"
+
     home:
       name: "ホーム"
+
     pagination:
       previous: "&laquo; 前へ"
       next: "次へ &raquo;"
       truncate: "..."
+
     flash:
       successful: "%{name} は正常に %{action} されました"
       error: "%{name} を %{action} できませんでした"
       noaction: "変更は行われませんでした"
       model_not_found: "モデル '%{model}' が見つかりませんでした"
       object_not_found: "%{model} ID '%{id}' が見つかりませんでした"
+
   datetime:
     distance_in_words:
       about_x_hours:
@@ -152,6 +167,7 @@ ja:
       x_seconds:
         one: "1秒"
         other: "%{count}秒"
+
   date:
     abbr_day_names:
       - 日
@@ -205,6 +221,7 @@ ja:
       - :year
       - :month
       - :day
+
   time:
     am: 午前
     formats:
@@ -212,6 +229,7 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+
   number:
     currency:
       format:
@@ -258,11 +276,13 @@ ja:
     precision:
       format:
         delimiter: ""
+
   support:
     array:
       last_word_connector: "、"
       two_words_connector: "、"
       words_connector: "、"
+
   activerecord:
     models:
       book: 書籍
