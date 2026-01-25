@@ -20,19 +20,19 @@ ja:
         menu: "アプリで表示"
 
       new:
-        title: "%{model_label} を作成"
+        title: "%{model_label} 新規作成"
         menu: "新規作成"
         breadcrumb: "新規作成"
         done: "%{model_label} を作成しました"
 
       edit:
-        title: "%{model_label} を編集"
+        title: "%{model_label} 編集"
         menu: "編集"
         breadcrumb: "編集"
         done: "%{model_label} を更新しました"
 
       delete:
-        title: "%{model_label} を削除"
+        title: "%{model_label} 削除"
         menu: "削除"
         breadcrumb: "削除"
         done: "%{model_label} を削除しました"
