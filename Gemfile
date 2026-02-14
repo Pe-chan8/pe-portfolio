@@ -81,3 +81,5 @@ gem "sassc-rails"
 # Cloudinary for image storage
 gem "cloudinary"
 gem "activestorage-cloudinary-service"
+
+gem "faraday", ">= 2.14.1"
