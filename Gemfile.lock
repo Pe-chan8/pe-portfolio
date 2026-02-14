@@ -462,7 +462,7 @@ DEPENDENCIES
   minitest (~> 5.20)
   pg
   puma (>= 5.0)
-  rails (~> 8.1.2)
+  rails (~> 8.1.0)
   rails-controller-testing
   ransack
   rubocop-rails-omakase
