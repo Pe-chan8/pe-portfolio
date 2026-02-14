@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 # gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -49,7 +49,7 @@ group :development, :test do
   gem "bundler-audit", require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  gem "brakeman", "~> 8.0", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -58,6 +58,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "foreman"
 end
 
 group :production do
@@ -74,10 +75,11 @@ group :test do
 end
 
 gem "ransack"
-gem "rails_admin", "~> 3.0"
 gem "sprockets-rails"
 gem "sassc-rails"
 
 # Cloudinary for image storage
 gem "cloudinary"
 gem "activestorage-cloudinary-service"
+
+gem "faraday", ">= 2.14.1"

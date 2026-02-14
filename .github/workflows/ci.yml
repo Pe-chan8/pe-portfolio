@@ -52,6 +52,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/pe_portfolio_test
 
     services:
       postgres:
@@ -59,57 +62,44 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: pe_portfolio_test
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
-      # redis:
-      #   image: valkey/valkey:8
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev node-gyp
-
       - name: Checkout code
         uses: actions/checkout@v5
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
       - name: Install npm dependencies
         run: npm ci
-
       - name: Build JavaScript
         run: npm run build
-
       - name: Build CSS
         run: npm run build:css
-
       - name: Run tests
         env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
           ADMIN_BASIC_AUTH_USER: admin
           ADMIN_BASIC_AUTH_PASSWORD: test-password
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: |
           bin/rails db:test:prepare
           bin/rails test test/models/
 
   system-test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/pe_portfolio_test
 
     services:
       postgres:
@@ -117,6 +107,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: pe_portfolio_test
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -157,7 +148,6 @@ jobs:
       - name: Run System Tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
           ADMIN_BASIC_AUTH_USER: admin
           ADMIN_BASIC_AUTH_PASSWORD: test-password
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
