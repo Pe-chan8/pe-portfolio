@@ -58,6 +58,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "foreman"
 end
 
 group :production do
@@ -74,7 +75,6 @@ group :test do
 end
 
 gem "ransack"
-gem "rails_admin", "~> 3.0"
 gem "sprockets-rails"
 gem "sassc-rails"
 
