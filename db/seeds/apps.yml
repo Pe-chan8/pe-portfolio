@@ -1,0 +1,100 @@
+- title: "AI-Bloom"
+  image_key: "ai_bloom.png"
+  summary: >
+    日々の小さな頑張りを“やさしく抱きしめる”セルフコンパッション×自己分析ツール。
+    AIとの対話を通じて、感情整理・自己理解・自己肯定の土台づくりを支援します。
+  target: >
+    自己否定しがちな人 / 感情整理が苦手な人 /
+    自分のペースで内省したい人 / セルフコンパッションを育みたい人
+  tech: >
+    Ruby / Ruby on Rails 8 / Hotwire (Turbo・Stimulus) /
+    PostgreSQL / Render / Docker / OpenAI API
+  improvements: >
+    ・AIとの対話設計（やさしい問いかけ設計）
+    ・投稿データの分析ロジック実装
+    ・YAML管理による保守性向上
+    ・固定画像運用による本番安定化
+  mvp_released_on: "2025-12-18"
+  released_on: "2026-02-28"
+  app_url: "https://ai-bloom.onrender.com"
+  github_url: "https://github.com/Pe-chan8/AI-Bloom"
+  demo_url:
+  tags:
+    - "個人制作"
+    - "日記"
+    - "AI"
+    - "自己理解"
+    - "卒業制作"
+
+- title: "くみわけOnline"
+  image_key: "kumiwake_online.png"
+  summary: >
+    オンラインイベントや会議でのグループ分けを、公平かつ簡単に実現するWebアプリ。
+    運営側・参加者双方の負担を軽減します。
+  target: >
+    オンラインイベント主催者 / 研修運営者 / 学校・勉強会運営者
+  tech: >
+    Ruby / Ruby on Rails / Hotwire /
+    PostgreSQL / Docker / GitHub Actions
+  improvements: >
+    ・シャッフルロジックの実装
+    ・属性バランス分配の設計
+    ・運営負担を減らすUI/UX設計
+  mvp_released_on: "2026-02-28"
+  released_on:
+  app_url:
+  github_url:
+  demo_url:
+  tags:
+    - "個人制作"
+    - "業務効率化"
+    - "会議・イベント"
+    - "グループ分け"
+
+- title: "ペーちゃん's portfolio"
+  image_key: "portfolio.png"
+  summary: >
+    制作物・記事・学習記録を一元管理するポートフォリオサイト。
+    「何を学び、何を作り、どう改善してきたか」を一目で追えるように構成しています。
+  target: >
+    採用担当者 / 面談相手 / 自己振り返り
+  tech: >
+    Ruby / Ruby on Rails 8 /
+    PostgreSQL / TailwindCSS / Ransack /
+    Render / Docker
+  improvements: >
+    ・seed＋YAML管理による長期運用設計
+    ・固定画像運用による本番安定化
+    ・タグ検索・絞り込み機能で閲覧性向上
+  mvp_released_on: "2026-02-28"
+  released_on:
+  app_url: "https://pe-portfolio.onrender.com"
+  github_url: "https://github.com/Pe-chan8/pe-portfolio"
+  demo_url:
+  tags:
+    - "個人制作"
+    - "ポートフォリオ"
+    - "運用設計"
+
+- title: "Github profile"
+  image_key: "github_profile.png"
+  summary: >
+    GitHub上での活動を可視化し、開発姿勢・継続力・世界観を伝えるプロフィール設計。
+    READMEに「価値観・背景・積み重ね」をまとめています。
+  target: >
+    採用担当者 / エンジニアコミュニティ
+  tech: >
+    GitHub / Markdown / README設計 / 発信設計
+  improvements: >
+    ・世界観の統一（デザイン・文章）
+    ・ポートフォリオへの導線設計
+    ・活動の可視化
+  mvp_released_on: "2025-12-26"
+  released_on:
+  app_url: "https://github.com/Pe-chan8"
+  github_url: "https://github.com/Pe-chan8"
+  demo_url:
+  tags:
+    - "個人制作"
+    - "プロフィール"
+    - "発信"

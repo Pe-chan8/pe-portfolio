@@ -21,6 +21,7 @@
     <div class="mt-8 grid gap-6 sm:grid-cols-2">
       <% @apps.each do |app| %>
         <div class="flex flex-col rounded-2xl bg-slate-100 p-4 dark:bg-slate-900 text-slate-900 dark:text-white">
+
           <div class="rounded-xl bg-white p-3 text-center font-bold dark:bg-slate-800 min-h-[48px] flex items-center justify-center">
             <%= app.title %>
           </div>
@@ -34,8 +35,27 @@
           </div>
 
           <div class="mt-3 grid grid-cols-2 gap-3">
-            <div class="h-28 rounded-xl bg-slate-300 grid place-items-center font-extrabold dark:bg-slate-700">画像</div>
-            <div class="h-28 rounded-xl bg-slate-300 grid place-items-center font-extrabold dark:bg-slate-700">動画</div>
+            <% img_key = app.image_key.presence || "placeholder.png" %>
+            <% asset_path = "static/apps/#{img_key}" %>
+
+            <div class="h-28 overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-800">
+              <% if Rails.application.assets&.find_asset(asset_path) %>
+                <% img_key = app.image_key.presence || "placeholder.png" %>
+                <%= image_tag "static/apps/#{img_key}",
+                              alt: "#{app.title}の画像",
+                              class: "h-full w-full object-cover",
+                              loading: "lazy" %>
+              <% else %>
+                <%= image_tag "static/apps/placeholder.png",
+                              alt: "#{app.title}の画像（未登録）",
+                              class: "h-full w-full object-cover",
+                              loading: "lazy" %>
+              <% end %>
+            </div>
+
+            <div class="h-28 rounded-xl bg-slate-300 grid place-items-center font-extrabold dark:bg-slate-700">
+              動画
+            </div>
           </div>
 
           <div class="mt-auto pt-3">

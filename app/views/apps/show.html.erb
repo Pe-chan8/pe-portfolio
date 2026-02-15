@@ -19,14 +19,34 @@
       </div>
     </div>
 
-    <div class="mt-6 h-64 rounded-2xl bg-slate-200 grid place-items-center text-2xl font-extrabold dark:bg-slate-800">
-      画像
+    <% img_key = @app.image_key.presence || "placeholder.png" %>
+    <% asset_path = "static/apps/#{img_key}" %>
+
+    <div class="mt-6 overflow-hidden rounded-2xl bg-slate-200 dark:bg-slate-800">
+      <% if Rails.application.assets&.find_asset(asset_path) %>
+        <% img_key = @app.image_key.presence || "placeholder.png" %>
+        <%= image_tag "static/apps/#{img_key}",
+                      alt: "#{@app.title}の画像",
+                      class: "w-full object-cover aspect-[16/9]",
+                      loading: "lazy" %>
+      <% else %>
+        <%= image_tag "static/apps/placeholder.png",
+                      alt: "#{@app.title}の画像（未登録）",
+                      class: "w-full object-cover aspect-[16/9]",
+                      loading: "lazy" %>
+      <% end %>
     </div>
 
     <div class="mt-4 flex flex-wrap gap-3">
-      <% if @app.app_url.present? %><a class="btn" href="<%= @app.app_url %>" target="_blank" rel="noreferrer">アプリを触る</a><% end %>
-      <% if @app.demo_url.present? %><a class="btn" href="<%= @app.demo_url %>" target="_blank" rel="noreferrer">使い方を見る</a><% end %>
-      <% if @app.github_url.present? %><a class="btn" href="<%= @app.github_url %>" target="_blank" rel="noreferrer">Githubを見る</a><% end %>
+      <% if @app.app_url.present? %>
+        <a class="btn" href="<%= @app.app_url %>" target="_blank" rel="noreferrer">アプリを触る</a>
+      <% end %>
+      <% if @app.demo_url.present? %>
+        <a class="btn" href="<%= @app.demo_url %>" target="_blank" rel="noreferrer">使い方を見る</a>
+      <% end %>
+      <% if @app.github_url.present? %>
+        <a class="btn" href="<%= @app.github_url %>" target="_blank" rel="noreferrer">Githubを見る</a>
+      <% end %>
     </div>
 
     <div class="mt-8 space-y-3">

@@ -16,12 +16,19 @@
 
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div>
-        <% if @book.image.attached? %>
-          <%= image_tag @book.image, class: "w-full rounded-2xl object-cover", alt: @book.title %>
+        <% cover_url = @book.respond_to?(:cover_image_url) ? @book.cover_image_url.presence : nil %>
+
+        <% if cover_url %>
+          <%= image_tag cover_url,
+                        class: "w-full rounded-2xl object-cover aspect-[3/4]",
+                        alt: "#{@book.title}の表紙",
+                        loading: "lazy",
+                        referrerpolicy: "no-referrer" %>
         <% else %>
-          <div class="aspect-[3/4] rounded-2xl bg-slate-200 grid place-items-center text-xl font-extrabold dark:bg-slate-800">
-            表紙画像
-          </div>
+          <%= image_tag "static/book_cover_placeholder.png",
+                        class: "w-full rounded-2xl object-cover aspect-[3/4]",
+                        alt: "#{@book.title}の表紙（未登録）",
+                        loading: "lazy" %>
         <% end %>
       </div>
 
