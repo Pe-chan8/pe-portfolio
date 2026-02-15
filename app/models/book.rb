@@ -1,8 +1,6 @@
 class Book < ApplicationRecord
   GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes"
 
-  has_one_attached :image
-
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
 
