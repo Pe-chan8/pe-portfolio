@@ -64,4 +64,8 @@ class Book < ApplicationRecord
       small_thumbnail_url: volume_info.dig("imageLinks", "smallThumbnail")
     }
   end
+
+  def image
+    "static/book_cover_placeholder.png"
+  end
 end
