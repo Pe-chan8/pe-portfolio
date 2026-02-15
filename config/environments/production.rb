@@ -90,4 +90,6 @@ Rails.application.configure do
   config.assets.compile = false
   config.assets.digest = true
   config.assets.css_compressor = nil
+
+  config.active_job.queue_adapter = :async
 end

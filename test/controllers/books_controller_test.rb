@@ -4,7 +4,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get books_url
     assert_response :success
-    assert_select "h1", "Books"
+    assert_select "h1", "学習記録"
   end
 
   test "should get show" do
@@ -195,7 +195,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_equal "出版社", book.publisher
     assert_equal "9781234567890", book.isbn
     assert_equal "書籍の説明", book.summary
-    assert book.image.attached?
+    assert book.image.present?
   end
 
   test "create_from_google_books should handle invalid data" do

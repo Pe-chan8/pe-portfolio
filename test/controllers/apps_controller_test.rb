@@ -2,12 +2,12 @@ require "test_helper"
 
 class AppsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get apps_index_url
+    get apps_url
     assert_response :success
   end
 
   test "should get show" do
-    get apps_show_url
+    get app_url(apps(:one))
     assert_response :success
   end
 end
