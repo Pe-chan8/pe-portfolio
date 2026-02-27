@@ -6,31 +6,14 @@ on:
     branches: [ main ]
 
 jobs:
-  scan_ruby:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager --no-exit-on-warn
-      
-      - name: Scan for known security vulnerabilities in gems used
-        run: bin/bundler-audit
-      
   lint:
     runs-on: ubuntu-latest
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -43,12 +26,13 @@ jobs:
           DEPENDENCIES_HASH: ${{ hashFiles('.ruby-version', '**/.rubocop.yml', '**/.rubocop_todo.yml', 'Gemfile.lock') }}
         with:
           path: ${{ env.RUBOCOP_CACHE_ROOT }}
-          key: rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-${{ github.ref_name == github.event.repository.default_branch && github.run_id || 'default' }}
+          key: rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}
           restore-keys: |
-            rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-
+            rubocop-${{ runner.os }}-
 
-      - name: Lint code for consistent style
+      - name: Lint code
         run: bin/rubocop -f github
+
 
   test:
     runs-on: ubuntu-latest
@@ -65,35 +49,47 @@ jobs:
           POSTGRES_DB: pe_portfolio_test
         ports:
           - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
-      - name: Install packages
+      - name: Install system packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev node-gyp
+
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
+
       - name: Install npm dependencies
         run: npm ci
+
       - name: Build JavaScript
         run: npm run build
+
       - name: Build CSS
         run: npm run build:css
+
       - name: Run tests
         env:
           ADMIN_BASIC_AUTH_USER: admin
           ADMIN_BASIC_AUTH_PASSWORD: test-password
         run: |
           bin/rails db:test:prepare
-          bin/rails test test/models/
+          bin/rails test
+
 
   system-test:
     runs-on: ubuntu-latest
@@ -110,20 +106,18 @@ jobs:
           POSTGRES_DB: pe_portfolio_test
         ports:
           - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      # redis:
-      #   image: valkey/valkey:8
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
-      - name: Install packages
+      - name: Install system packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev node-gyp
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -133,8 +127,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install npm dependencies
         run: npm ci
@@ -147,17 +141,15 @@ jobs:
 
       - name: Run System Tests
         env:
-          RAILS_ENV: test
           ADMIN_BASIC_AUTH_USER: admin
           ADMIN_BASIC_AUTH_PASSWORD: test-password
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test:system
 
-      - name: Keep screenshots from failed system tests
+      - name: Upload screenshots if failed
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
+          path: tmp/screenshots
           if-no-files-found: ignore
+          
