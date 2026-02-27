@@ -1,0 +1,24 @@
+- id: rails_tutorial
+  title: "Ruby on Railsチュートリアルで学んだこと"
+  summary: "Railsの基礎から実践まで学べるチュートリアル..."
+  body: "Ruby on Railsチュートリアルを通じて、Webアプリケ..."
+  published_on: "2025-12-15"
+  url: "https://example.com/rails"
+  source: "Qiita"
+
+- id: react_hooks
+  title: "React Hooks入門"
+  summary: "Hooksの基本を整理"
+  body: "useState/useEffect..."
+  published_on: "2026-01-10"
+  url: "https://example.com/react"
+  source: "Zenn"
+
+- id: docker_basics
+  title: "Docker基礎"
+  summary: "Dockerの基本"
+  body: "コンテナ/イメージ..."
+  published_on: "2026-02-01"
+  url: "https://example.com/docker"
+  source: "note"
+  

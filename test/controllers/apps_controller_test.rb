@@ -7,7 +7,8 @@ class AppsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    get app_url(apps(:one))
+    app = apps(:one)
+    get app_url(app)
     assert_response :success
   end
 end

@@ -1,19 +1,24 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 rails_tutorial:
-  title: "Ruby on Railsチュートリアルで学んだこと"
-  published_on: 2025-12-15
-  summary: "Railsの基礎から実践まで学べるチュートリアルを完走した感想"
-  body: "Ruby on Railsチュートリアルを通じて、Webアプリケーション開発の基礎を学びました。"
+  title: Ruby on Railsチュートリアルで学んだこと
+  published_on: "2025-12-15"
+  summary: Railsの基礎から実践まで学べるチュートリアル...
+  body: Ruby on Railsチュートリアルを通じて、Webアプリケ...
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 
 react_hooks:
-  title: "React Hooksの使い方入門"
-  published_on: 2026-01-10
-  summary: "React Hooksの基本的な使い方をまとめました"
-  body: "useStateやuseEffectなど、React Hooksの基本的な使い方を解説します。"
+  title: React Hooks入門
+  published_on: "2026-01-10"
+  summary: Hooksの基本を整理
+  body: useState/useEffect...
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 
 docker_basics:
-  title: "Dockerを使った開発環境構築"
-  published_on: 2025-11-25
-  summary: "Dockerを使った開発環境の構築方法"
-  body: "Dockerを使うことで、チーム全体で統一された開発環境を構築できます。"
+  title: Docker基礎
+  published_on: "2026-02-01"
+  summary: Dockerの基本
+  body: コンテナ/イメージ...
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  
