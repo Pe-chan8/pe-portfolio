@@ -15,37 +15,57 @@ class Book < ApplicationRecord
     %w[tags]
   end
 
+  # 表示用の画像（暫定）
+  def image
+    "static/book_cover_placeholder.png"
+  end
+
+  # ===== YAML管理（Issue3）ここから =====
+  DATA_PATH = Rails.root.join("db", "data", "books.yml")
+
+  def self.load_books_yaml
+    return [] unless File.exist?(DATA_PATH)
+    yaml = File.read(DATA_PATH)
+    YAML.safe_load(yaml, permitted_classes: [], aliases: true) || []
+  end
+
+  def self.normalize_books_yaml(row)
+    row = (row || {}).transform_keys(&:to_s)
+
+    {
+      google_books_id: row["google_books_id"],
+      title: row["title"],
+      authors: row["authors"],
+      publisher: row["publisher"],
+      published_on: row["published_on"].presence && Date.parse(row["published_on"]),
+      isbn: row["isbn"],
+      summary: row["summary"],
+      read_on: row["read_on"].presence && Date.parse(row["read_on"])
+    }
+  end
+  # ===== YAML管理ここまで =====
+
   # Google Books APIで書籍を検索
-  # @param query [String] 検索クエリ
-  # @param max_results [Integer] 最大結果数（デフォルト: 10）
-  # @return [Array<Hash>] 書籍データの配列
   def self.search_google_books(query, max_results: 10)
     return [] if query.blank?
 
     uri = URI(GOOGLE_BOOKS_API_URL)
-    params = {
-      q: query,
-      maxResults: max_results,
-      langRestrict: "ja"
-    }
+    params = { q: query, maxResults: max_results, langRestrict: "ja" }
     api_key = ENV["GOOGLE_BOOKS_API_KEY"]
     params[:key] = api_key if api_key.present?
 
     uri.query = URI.encode_www_form(params)
-
     response = Net::HTTP.get_response(uri)
     return [] unless response.is_a?(Net::HTTPSuccess)
 
     data = JSON.parse(response.body)
     items = data["items"] || []
-
     items.map { |item| parse_google_books_item(item) }
   rescue StandardError => e
     Rails.logger.error("Google Books API error: #{e.message}")
     []
   end
 
-  # Google Books APIのレスポンスをパースして書籍データに変換
   def self.parse_google_books_item(item)
     volume_info = item["volumeInfo"] || {}
     industry_identifiers = volume_info["industryIdentifiers"] || []
@@ -63,9 +83,5 @@ class Book < ApplicationRecord
       thumbnail_url: volume_info.dig("imageLinks", "thumbnail"),
       small_thumbnail_url: volume_info.dig("imageLinks", "smallThumbnail")
     }
-  end
-
-  def image
-    "static/book_cover_placeholder.png"
   end
 end

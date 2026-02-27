@@ -1,28 +1,29 @@
 class ArticlesController < ApplicationController
   def index
-    @q = Article.ransack(params[:q])
-    @view = params[:view].presence_in(%w[grid list]) || "grid"
-    @sort = params[:sort].presence_in(%w[title_asc title_desc published_on_desc published_on_asc created_at_desc created_at_asc]) || "published_on_desc"
-    @search_params = params[:q]&.to_unsafe_h || {}
+    p = params.respond_to?(:to_unsafe_h) ? params.to_unsafe_h : params.to_h
 
-    articles = @q.result(distinct: true).includes(:tags)
-    @articles = case @sort
-    when "title_asc"
-      articles.order(title: :asc)
-    when "title_desc"
-      articles.order(title: :desc)
-    when "published_on_desc"
-      articles.order(published_on: :desc)
-    when "published_on_asc"
-      articles.order(published_on: :asc)
-    when "created_at_desc"
-      articles.order(created_at: :desc)
-    when "created_at_asc"
-      articles.order(created_at: :asc)
-    end
+    keyword =
+      if (s = p[:search] || p["search"]).is_a?(Hash)
+        s[:keyword] || s["keyword"]
+      elsif (q = p[:q] || p["q"]).is_a?(Hash)
+        q[:keyword] || q["keyword"]
+      else
+        p[:keyword] || p["keyword"] || p[:query] || p["query"]
+      end
+
+    keyword = keyword.to_s.strip
+    keyword = nil if keyword.blank?
+
+    sort_key = p[:sort] || p["sort"]
+    @view = (p[:view] || p["view"]).presence || "grid"
+
+    list = Article.search(keyword)
+    list = Article.sort(list, sort_key)
+
+    @articles = list
   end
 
   def show
-    @article = Article.includes(:tags).find(params[:id])
+    @article = Article.find(params[:id])
   end
 end

@@ -1,70 +1,56 @@
-<section class="mx-auto w-full max-w-5xl px-6 py-10">
-  <div class="card p-8">
-    <div class="flex items-end justify-between mb-6">
-      <h1 class="text-3xl font-extrabold">記事</h1>
+<h1 class="text-2xl font-bold mb-6">記事</h1>
 
-      <div class="flex gap-2">
-        <%= link_to "カード", articles_path(view: "grid", sort: @sort, q: @search_params), class: "pill #{@view == 'grid' ? 'bg-sky-500 text-white' : ''}" %>
-        <%= link_to "リスト", articles_path(view: "list", sort: @sort, q: @search_params), class: "pill #{@view == 'list' ? 'bg-sky-500 text-white' : ''}" %>
-      </div>
-    </div>
+<%= form_with url: articles_path, method: :get, local: true, class: "mb-4" do %>
+  <div class="flex gap-2 items-center">
+    <%= text_field_tag "q[keyword]",
+      params.dig(:q, :keyword),
+      placeholder: "記事を検索（タイトル / 要約）",
+      class: "border rounded px-3 py-2 w-full" %>
 
-    <div class="mb-6 flex flex-wrap gap-2">
-      <%= link_to "書いた日（新）", articles_path(sort: "published_on_desc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_desc' ? 'bg-sky-500 text-white' : ''}" %>
-      <%= link_to "書いた日（古）", articles_path(sort: "published_on_asc", view: @view, q: @search_params), class: "pill #{@sort == 'published_on_asc' ? 'bg-sky-500 text-white' : ''}" %>
-      <%= link_to "タイトル（昇順）", articles_path(sort: "title_asc", view: @view, q: @search_params), class: "pill #{@sort == 'title_asc' ? 'bg-sky-500 text-white' : ''}" %>
-      <%= link_to "タイトル（降順）", articles_path(sort: "title_desc", view: @view, q: @search_params), class: "pill #{@sort == 'title_desc' ? 'bg-sky-500 text-white' : ''}" %>
-    </div>
+    <%= hidden_field_tag :view, params[:view] if params[:view].present? %>
+    <%= hidden_field_tag :sort, params[:sort] if params[:sort].present? %>
 
-    <%= search_form_for @q, url: articles_path, method: :get do |f| %>
-      <%= hidden_field_tag :view, @view %>
-      <%= hidden_field_tag :sort, @sort %>
-      <div class="flex gap-3 mb-6">
-          <%= f.search_field :title_or_summary_or_body_cont,
-              placeholder: "記事検索",
-              class: "input" %>
-          <%= f.submit "検索", class: "btn" %>
-      </div>
-
-      <!-- タグ検索（記事用だけ表示） -->
-      <div class="flex flex-wrap gap-2 mb-6">
-          <% Tag.for_articles.each do |tag| %>
-          <label class="pill flex items-center gap-1">
-              <%= f.check_box :tags_id_in, { multiple: true }, tag.id, nil %>
-              <%= tag.name %>
-          </label>
-          <% end %>
-      </div>
-    <% end %>
-
-    <% if @view == "list" %>
-      <div class="space-y-3">
-        <% @articles.each do |article| %>
-          <div class="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 dark:bg-slate-900 text-slate-900 dark:text-white">
-            <div class="w-28 text-sm font-bold">
-              <%= article.published_on || "日付未設定" %>
-            </div>
-            <div class="flex-1 font-bold">
-              <%= article.title %>
-            </div>
-            <%= link_to "詳細", article_path(article), class: "btn" %>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="grid gap-6 sm:grid-cols-3">
-        <% @articles.each do |article| %>
-          <div class="flex flex-col rounded-2xl bg-slate-100 p-4 dark:bg-slate-900 text-slate-900 dark:text-white">
-            <p class="text-sm font-bold text-center">
-              <%= article.published_on || "日付未設定" %>
-            </p>
-            <h2 class="mt-2 text-center font-bold min-h-[48px] flex items-center justify-center"><%= article.title %></h2>
-            <div class="mt-auto pt-4">
-              <%= link_to "詳細を見る", article_path(article), class: "btn w-full" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= submit_tag "検索", class: "px-4 py-2 rounded bg-black text-white" %>
   </div>
-</section>
+<% end %>
+
+<div class="grid md:grid-cols-2 gap-6">
+  <% @articles.each do |a| %>
+    <div class="bg-white shadow-md rounded-xl p-5 hover:shadow-lg transition">
+      
+      <!-- タイトル -->
+      <h2 class="text-lg font-semibold mb-2">
+        <%= link_to a.title, a.url, target: "_blank", rel: "noopener", class: "hover:underline" %>
+      </h2>
+
+      <!-- メタ情報 -->
+      <div class="text-sm text-gray-500 mb-2">
+        <% if a.source.present? %>
+          <span><%= a.source %></span>
+        <% end %>
+        <% if a.published_on.present? %>
+          ・ <span><%= a.published_on %></span>
+        <% end %>
+      </div>
+
+      <!-- タグ -->
+      <% if a.tags.present? %>
+        <div class="mb-2">
+          <% a.tags.each do |t| %>
+            <span class="inline-block bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded mr-1">
+              <%= t %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- 概要 -->
+      <% if a.description.present? %>
+        <p class="text-sm text-gray-700">
+          <%= a.description %>
+        </p>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>

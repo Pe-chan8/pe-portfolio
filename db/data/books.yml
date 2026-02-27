@@ -1,0 +1,12 @@
+- google_books_id:
+  title: "プロを目指す人のためのRuby入門"
+  authors: "伊藤 淳一"
+  publisher: "技術評論社"
+  published_on: "2017-11-25"
+  isbn: "9784774193977"
+  summary: "Rubyの基礎〜実践を体系的に学べた"
+  read_on: "2026-02-20"
+  tags:
+    - "Ruby"
+    - "基礎"
+    
