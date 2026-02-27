@@ -1,0 +1,23 @@
+- id: "qiita-rails8-portfolio"
+  title: "Rails8でポートフォリオを整備した話"
+  url: "https://example.com"
+  source: "Qiita"
+  tags:
+    - "Rails"
+    - "ポートフォリオ"
+  published_on: "2026-02-16"
+  description: "記事の概要（任意）"
+  image_url:
+  status: "public"
+
+- id: "note-self-intro"
+  title: "自己紹介とキャリアの軸"
+  url: "https://example.com"
+  source: "note"
+  tags:
+    - "自己紹介"
+  published_on: "2026-02-10"
+  description:
+  image_url:
+  status: "public"
+  

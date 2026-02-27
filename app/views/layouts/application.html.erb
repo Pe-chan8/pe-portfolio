@@ -58,7 +58,13 @@
       <%# ===== Main ===== %>
       <%# TOPページ以外はヘッダー・フッターとの余白を確保 %>
       <main class="flex-1 <%= content_for?(:fullscreen) ? '' : 'pt-32 pb-32' %>">
-        <%= yield %>
+        <% if content_for?(:fullscreen) %>
+          <%= yield %>
+        <% else %>
+          <div class="mx-auto w-full max-w-6xl px-6">
+            <%= yield %>
+          </div>
+        <% end %>
       </main>
 
       <%# ===== Fixed Footer ===== %>
